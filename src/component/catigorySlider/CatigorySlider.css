@@ -1,0 +1,29 @@
+
+
+#CatigorySlider .card{
+    border: none;
+    border-radius: none;
+    height: auto;
+    background-color: #f5f5f5;
+  }
+#CatigorySlider img{
+    border-radius: 10px;
+    height: 150px !important;
+    width:100%!important;
+}
+#CatigorySlider p{
+    font-size: 1rem !important
+}
+
+  @media (max-width: 768px) {
+#CatigorySlider p{
+        font-size: 1.2rem !important
+}
+
+#CatigorySlider img{
+    border-radius: 10px;
+    height: 150px !important;
+    width:100%!important;
+}
+
+  }

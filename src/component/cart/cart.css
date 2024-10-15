@@ -1,0 +1,25 @@
+@media (max-width: 768px) {
+
+    #cart .total-price {
+      padding: 0rem;
+    }
+  
+    #cart .total-price{
+      width: 100%;
+      /* background-color: #000; */
+    }
+  
+    #cart .total-price p {
+      font-size: .75rem !important;
+      margin: 0.5rem 0;
+    }
+  
+    #cart .total-price .btn {
+      width: 100%;
+      font-size: 1rem;
+    }
+  
+    #cart .total-price .fa-cc-amazon-pay {
+      font-size: 1.5rem;
+    }
+  }
