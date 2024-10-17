@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import "./orders.css"
 export default function Orders() {
   const baseUrl = "https://project-model.onrender.com";
   const [allOrders, setAllOrders] = useState([]);
@@ -24,7 +24,7 @@ export default function Orders() {
   }
 
   return (
-    <div className="container">
+    <div className="container" >
       <div className="row">
         <div className="col-md-12 my-5">
           <p className='fw-bolder fs-2 text-end text-danger'>الطلبات</p>
@@ -74,11 +74,10 @@ function OrderItem({ order }) {
   }, [order.isPaid, order.DeliverdAt]);
 
   return (
-    <div className="col-md-12 border border-1 my-2">
+    <div className="col-md-12 border border-1 my-2" id='orders'>
       <p className="text-end fs-3 fw-bolder">
         الاسم: <span className="text-danger">{order.user.name}</span>
       </p>
-      <p className="text-end fw-bolder fs-4">العنوان</p>
       <p className="text-end fw-bolder fs-4">
         المدينة: <span className="text-danger">{order.shippingAddress.city}</span>
       </p>

@@ -6,12 +6,19 @@ import Footer from '../footer/Footer.jsx'
 
 export default function Layout({Logout , userdata}) {
   return <>
-
-   
-          <Navbar  Logout={Logout} userdata={userdata}/>
+    
+ 
+<Navbar  Logout={Logout} userdata={userdata}/>
+      
+          <Outlet />
+        
+          <Footer/>
+ 
+ 
+ 
+          
        
-          <Outlet/>
-        <Footer/>
+        
       
 
   </>

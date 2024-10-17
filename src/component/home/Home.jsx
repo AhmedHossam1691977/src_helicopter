@@ -34,10 +34,10 @@ export default function Home() {
   </div>
       </div>
   
-<div className="container">
+<div className="container ">
   <div className="row">
-  <div className="col-md-12 ">
-        <MinSlider/>
+  <div className="col-md-12 " >
+        <MinSlider className="minsliders"/>
       </div>
       
       <div className="col-md-12">

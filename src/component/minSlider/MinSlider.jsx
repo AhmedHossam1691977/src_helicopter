@@ -57,7 +57,7 @@ export default function   MinSlider() {
     <img src="https://s3-alpha-sig.figma.com/img/70a5/cb9d/c35ceb717964142f88d228ac751bd812?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gIdlBYrN7~QIDbgdj~T~cUSEgzDbXXJBvT0klTlAWrz15CSIkYVBR5QoYvjV6uQlh3XHxZVmclGVfhparxVFoIgqI2IxCEO9ygR7deQGd-vkCyggMxSoc0ryrqppVENtQyTmOBHTlbgwcKqMsntgCer0zaQsr0eqg2SR105lDQdUfw8gX33rgo9ITvqKjagPrfHhqf3HrnLili~PIP4lbTftcHeBQQ1lEny8zMTuSuaa915bpb5lo8SiBfh8T40UHwogoKCylCTvtIV8dVck2hT6ecFYq2TaAZ9wiJnagrGSAby24eQcVAdfExmeaut-mf1~9RFkF1QRvun4Se-zgQ__" className='w-25 cursor-pointer slider-img' alt="" />
     </div>
 </div>
-</Carousel>;
+</Carousel>
   
 
   </>

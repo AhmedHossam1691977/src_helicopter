@@ -1,0 +1,17 @@
+#orders{
+    background-color: rgba(0, 0, 0, 0.147)  ;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border:black solid 1px !important;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+
+    #orders p{
+        font-size: 20px !important;
+    }
+
+    #orders span{
+        font-size: 22px !important;
+    }
+}

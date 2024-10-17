@@ -56,6 +56,10 @@ $(".loading").fadeOut(1000)
       $(".loading").fadeIn(1000)
       setloading(false)
       localStorage.setItem('userToken', data.token);
+      localStorage.setItem('userName', data.user.userName);
+      localStorage.setItem('userEmail', data.user.email);
+
+
       savedata(data.user)
       nav('/')
       $(".loading").fadeOut(1000)

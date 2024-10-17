@@ -37,11 +37,15 @@ export default function Navbar({Logout , userdata}) {
         <div className="container">
           <Link className="navbar-brand fw-bolder fs-3" to="/"><span className='fs-2 fw-bolder text-danger'>H</span>elicopter</Link>
           <div className="d-flex align-items-center justify-align-content-around">
-            <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
-
-            <button className="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
+               <button className="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
+            </div>
+          </div>
+          <div className="d-flex align-items-center justify-align-content-around">
+            <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
+
 
 
             <li  className="nav-item form-mob mx-4">
@@ -57,9 +61,9 @@ export default function Navbar({Logout , userdata}) {
                 </li>
 
 
-            <Link className="nav-link px-3 fw-bold position-relative" to="cart">
+            <Link className="nav-link px-3 fw-bold position-relative icons" to="cart">
                 <RiShoppingCart2Line className="cart " />
-                <p className='position-absolute top-25   start-75  translate-middle badge rounded-3 bg-main  '>
+                <p className='position-absolute top-25   start-75  translate-middle badge rounded-3 bg-main '>
                   {cartCount?`${cartCount}`:"0"}
                 </p>
                 </Link>
@@ -81,7 +85,7 @@ export default function Navbar({Logout , userdata}) {
               </li>:""}
                 </>:""}
 
-            
+                    
 
               </div>
            
@@ -89,17 +93,13 @@ export default function Navbar({Logout , userdata}) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active px-3 fw-bold" aria-current="page" to="/">الرئيسيه</Link>
+                <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="/">الرئيسيه</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active px-3 fw-bold" aria-current="page" to="about">معلومات عنا</Link>
+                <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="about">معلومات عنا</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link active px-3 fw-bold" aria-current="page" to="contact">اتصل بنا</Link>
-              </li>
-
-              <li class="nav-item dropdown dropdownn px-3 fw-bold">
-          <Link class="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <li class="nav-item dropdown dropdownn px-3 fw-bold text-end">
+          <Link class="nav-link dropdown-toggle text-end" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             الاقسام
           </Link>
           <ul  class="dropdown-menu text-center">
@@ -123,7 +123,7 @@ export default function Navbar({Logout , userdata}) {
 
 
               <li className="nav-item">
-                <Link className="nav-link active px-3 fw-bold" aria-current="page" to="product">المنتجات</Link>
+                <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="product">المنتجات</Link>
               </li>
 
 
@@ -135,7 +135,7 @@ export default function Navbar({Logout , userdata}) {
     
               
               </>: <li className="nav-item">
-                <Link className="nav-link active px-3 fw-bold" aria-current="page" to="signup">انشاء حساب</Link>
+                <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup">انشاء حساب</Link>
               </li>}
             </ul>
 

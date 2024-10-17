@@ -45,12 +45,12 @@ export default function ProductOfCatigory() {
 
 
   async function addToChart(id) {
-    $(".loading").fadeIn(1000)
+
     let {data} =await addCart(id)
 console.log( data);
     if(data.message == "success"){
       setCartCount(data.cartItems)
-      $(".loading").fadeOut(1000)
+
       toast.success(data.message,{
         position: 'top-center',
         className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4' ,
@@ -69,13 +69,13 @@ console.log( data);
 
 
   async function addToWishlist(id) {
-    $(".loading").fadeIn(1000)
+
     let {data} =await addWishlist(id)
     if(data.message == "success"){
       console.log(data.wishlist.length ,data);
       
       setWhichlistCount(data.wishlist.length)
-      $(".loading").fadeOut(1000)
+
       toast.success(data.message,{
         position: 'top-center',
         className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4' ,

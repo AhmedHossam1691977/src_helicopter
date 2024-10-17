@@ -87,14 +87,12 @@ export default function Product() {
   // إضافة إلى العربة
   async function addToChart(id) {
     try {
-      $(".loading").fadeIn(1000);
       let { data } = await addCart(id);
       if (data.message === "success") {
         setCartCount(data.cartItems);
-        $(".loading").fadeOut(1000);
         toast.success("تم الاضافه", {
           position: 'top-center',
-          className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
+          className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4 success',
           duration: 1000,
           icon: '👏'
         });
@@ -102,7 +100,6 @@ export default function Product() {
         throw new Error("Error adding to cart");
       }
     } catch (error) {
-      $(".loading").fadeOut(1000);
       nav("/login")
       toast.error("Failed to add to cart. Please try again.", {
         position: 'top-center',
@@ -115,14 +112,12 @@ export default function Product() {
   // إضافة إلى المفضلة
   async function addToWishlist(id) {
     try {
-      $(".loading").fadeIn(1000);
       let { data } = await addWishlist(id);
       if (data.message === "success") {
         setWhichlistCount(data.wishlist.length);
-        $(".loading").fadeOut(1000);
         toast.success("تم الاضافه", {
           position: 'top-center',
-          className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
+          className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4',
           duration: 1000,
           icon: '👏'
         });
