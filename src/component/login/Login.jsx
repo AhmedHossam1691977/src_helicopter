@@ -116,8 +116,8 @@ $(".loading").fadeOut(1000)
 
 
        <div className='d-flex align-items-center justify-content-center'>
-       {loading ?<button type='button' className='btn btn-danger w-50  d-block'><i className="fa-solid fa-spinner fa-spin"></i></button>:<button disabled={!(registeform.isValid && registeform.dirty)} type="submit"className="btn btn-danger  d-block w-50 my-3">تسجيل الدحول</button>}  
-        <Link className='btn ms-auto fw-bolder' to="/forgetPassword">نست كلمه السر ؟</Link>
+       {loading ?<button type='button' className='btn btn-danger w-50  d-block'><i className="fa-solid fa-spinner fa-spin"></i></button>:<button disabled={!(registeform.isValid && registeform.dirty)} type="submit"className="btn btn-danger  d-block w-50 my-3">تسجيل الدخول</button>}  
+        <Link className='btn ms-auto fw-bolder' to="/forgetPassword">نسيت كلمه السر ؟</Link>
        </div>
         </form>
       </div>

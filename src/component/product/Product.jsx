@@ -88,6 +88,7 @@ export default function Product() {
   async function addToChart(id) {
     try {
       let { data } = await addCart(id);
+      
       if (data.message === "success") {
         setCartCount(data.cartItems);
         toast.success("تم الاضافه", {

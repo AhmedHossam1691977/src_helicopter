@@ -10,6 +10,8 @@ export default function CartContextProvider(props) {
         async function gitData() {
             let { data } = await getAllCartData();
             setCartCount(data.cartItems);
+            console.log(data.cartItems);
+            
         }
 
         // تحقق من وجود userToken قبل استدعاء gitData
@@ -19,6 +21,24 @@ export default function CartContextProvider(props) {
             setCartCount(0); // إذا لم يكن هناك userToken، يتم تعيين cartCount إلى 0
         }
     }, []);
+
+
+    useEffect(() => {
+        async function gitData() {
+            let { data } = await getAllCartData();
+            setCartCount(data.cartItems);
+            console.log(data.cartItems);
+            
+        }
+
+        // تحقق من وجود userToken قبل استدعاء gitData
+        if (localStorage.getItem("userToken")) {
+            gitData();
+        } else {
+            setCartCount(0); // إذا لم يكن هناك userToken، يتم تعيين cartCount إلى 0
+        }
+    }, [localStorage.getItem("userToken")],cartCount);
+
 
     async function getAllCartData() {
         return await axios.get(`https://project-model.onrender.com/api/v1/cart`, {
@@ -37,8 +57,6 @@ export default function CartContextProvider(props) {
     }
 
     function addCart(id) {
-        console.log(id, localStorage.getItem("userToken"));
-        
         return axios.post(`https://project-model.onrender.com/api/v1/cart`, { "product": id }, {
             headers: {
                 'token': localStorage.getItem("userToken")

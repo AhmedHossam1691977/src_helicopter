@@ -5,7 +5,7 @@ export default function About() {
   
   <div className="container my-5 d-flex align-items-center justify-content-center">
     <div className="row align-items-center justify-content-center">
-    <div className="col-md-6">
+    <div className="col-md-6  d-flex align-items-center justify-content-center">
           <img src={img} className=' helicopter' alt="" />
         </div>
       <div className="col-md-6 about d-flex align-items-center justify-content-center">
