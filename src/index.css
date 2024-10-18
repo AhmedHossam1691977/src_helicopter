@@ -15,6 +15,9 @@ ul
   margin: 0;  /* إزالة المسافات الخارجية */
 }
 
+.img-w{
+  height: 220px !important;
+}
 
 .navbar{
   padding:10px 0px !important;

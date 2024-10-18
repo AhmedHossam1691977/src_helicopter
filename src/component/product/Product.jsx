@@ -68,13 +68,13 @@ export default function Product() {
   // البحث عن المنتجات بناءً على الكلمات المفتاحية
   async function searchProducts() {
     try {
-      $(".loading").fadeIn(1000);
+    
       const { data } = await axios.get(`${baseUrl}/api/v1/product?keyword=${product}`);
       setAllProduct(data.product);
       setHasMore(data.product.length > 0);
-      $(".loading").fadeOut(1000);
+      
     } catch (error) {
-      $(".loading").fadeOut(1000);
+
       console.error('Error searching products:', error);
       toast.error("Failed to search products. Please try again.", {
         position: 'top-right',
@@ -88,7 +88,7 @@ export default function Product() {
   async function addToChart(id) {
     try {
       let { data } = await addCart(id);
-      
+
       if (data.message === "success") {
         setCartCount(data.cartItems);
         toast.success("تم الاضافه", {

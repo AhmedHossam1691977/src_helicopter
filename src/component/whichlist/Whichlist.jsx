@@ -103,7 +103,7 @@ export default function Whichlist() {
            <div key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3 ">
                   <div className="product position-relative" > 
                       <div className='position-relative '>
-                      <img src={elm.imgCover} className="w-100" alt="" />
+                      <img src={elm.imgCover} className="w-100 img-w" alt="" />
                       <div id='which-sp' className='which-sp w-100 bg-info'>
                       <span className="m-auto cursor-pointer " >
                         <MdOutlineDelete onClick={()=>deletProduct(elm.id)} id="wish" className=" fs-1 position-absolute"/>
@@ -118,7 +118,7 @@ export default function Whichlist() {
                       <button onClick={()=>addToChart(elm._id)} className="btn btn-danger w-100 d-block ">  <BsCartCheckFill className='fs-5 fw-bolder'/> </button>
                     </div>
                       <div className='product-des px-3'>
-                      <p className="text-main  fs-3 text-end text-name text-black"> الصنف :  <span className='text-danger fs-4'>{elm.title}</span>  </p>
+                      <p className="text-main  fs-3 text-end text-name text-black"> الصنف :  <span className='text-danger fs-4'>{elm.title.split(" ").slice(0,3).join(" ")}</span>  </p>
                       <p className="fw-bold text-end px-1 py-2">
                         <span className='text-danger fs-4'>{elm.price}</span> : السعر
                       </p>

@@ -23,11 +23,15 @@ export default function Navbar({Logout , userdata}) {
   const handleSearch = (event) => {
     const term = event.target.value;
     setProduct(term); 
+
+
   };
  
   
   useEffect(()=>{
   },[cartCount])
+
+
 
 
 
