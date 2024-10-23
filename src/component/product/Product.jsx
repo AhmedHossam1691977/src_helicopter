@@ -21,7 +21,7 @@ export default function Product() {
 
   const { product } = useContext(productContext);
   const { addCart, setCartCount } = useContext(CartContext);
-  const { addWishlist, removeWishlist, setWhichlistCount, WhichlistProduct  } = useContext(whichlistContext);
+  const { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct ,setWhichlistProduct  } = useContext(whichlistContext);
 
   const nav = useNavigate();
 
@@ -121,8 +121,9 @@ export default function Product() {
   async function toggleWishlist(id) {
     try {
       if (wishlist.includes(id)) {
-        let { data } = await removeWishlist(id);
+        let { data } = await deletWhichData(id);
         if (data.message === "success") {
+          setWhichlistProduct(data.wishlist)
           setWishlist(wishlist.filter(item => item !== id));
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الإزالة", {
@@ -137,6 +138,7 @@ export default function Product() {
       } else {
         let { data } = await addWishlist(id);
         if (data.message === "success") {
+          setWhichlistProduct(data.wishlist)          
           setWishlist([...wishlist, id]);
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الاضافه", {
@@ -151,7 +153,9 @@ export default function Product() {
       }
     } catch (error) {
       $(".loading").fadeOut(1000);
-      nav("/login");
+      if(!localStorage.getItem("userToken")){
+        nav("/login");
+      }
       toast.error("Failed to update wishlist. Please try again.", {
         position: 'top-center',
         className: 'border border-danger p-2 ',
