@@ -10,7 +10,6 @@ export default function CartContextProvider(props) {
         async function gitData() {
             let { data } = await getAllCartData();
             setCartCount(data.cartItems);
-            console.log(data.cartItems);
             
         }
 
@@ -27,7 +26,6 @@ export default function CartContextProvider(props) {
         async function gitData() {
             let { data } = await getAllCartData();
             setCartCount(data.cartItems);
-            console.log(data.cartItems);
             
         }
 

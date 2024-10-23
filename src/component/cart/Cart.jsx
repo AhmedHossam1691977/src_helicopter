@@ -66,6 +66,12 @@ export default function Cart() {
     }
   }
 
+  const handleImageClick = (id) => {
+    nav(`/productDetelse/${id}`);
+  };
+
+
+
   return (
     <>
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
@@ -120,7 +126,7 @@ export default function Cart() {
             return (
               <div className="col-md-12 my-2" key={elm._id}>
                 <div className="d-flex align-items-center justify-content-between border border-2 px-2 py-2">
-                  <div className="w-100 position-relative d-flex align-items-center">
+                  <div onClick={() => handleImageClick(elm.product._id)} className="w-100 position-relative d-flex align-items-center pointer">
                     <img
                       src={elm.product?.imgCover || "default-image-path.jpg"}
                       className="cart-image"

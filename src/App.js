@@ -33,8 +33,9 @@ export default function App() {
   let [userdata, setuserdata] = useState(null)
   let [showToast, setShowToast] = useState(false)
 
+
   function savedata(data) {
-    setuserdata(data)
+    setuserdata(data) 
   }
 
   // Logout
@@ -64,9 +65,15 @@ export default function App() {
     if (localStorage.getItem("userToken")) {
       let token = localStorage.getItem('userToken')
       let data = jwtDecode(token)
+
       savedata(data)
     }
+
   }, [])
+
+
+
+  
 
   let Routes = createHashRouter([
     {

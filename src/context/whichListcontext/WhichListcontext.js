@@ -6,21 +6,28 @@ import { createContext, useEffect, useState } from "react";
 export let whichlistContext = createContext() 
 export default function WhichlistContextProvider (props){
 
+    
+
     let [WhichlistCount ,setWhichlistCount] = useState()
+    let [WhichlistProduct ,setWhichlistProduct] = useState(null)
 
 
     useEffect(()=>{
-
+        console.log("hi wichlist");
+        
         async function gitData () {
         let {data} =await getAllWhichlistData()
+        if(localStorage.getItem("userToken")){
+            setWhichlistProduct(data.wishlist)
+        }else{
+            setWhichlistProduct(null)
+
+        }
         } 
 
 
         gitData ()
-        // search ()
-
-
-    },[WhichlistCount])
+    },[])
 
 
 
@@ -42,8 +49,7 @@ export default function WhichlistContextProvider (props){
     }
 
     function addWishlist(id){
-        console.log(id ,localStorage.getItem("userToken"));
-        
+
         return axios.patch(`https://project-model.onrender.com/api/v1/wishlist`,{"product": id},{
             headers:{
                 'token' :localStorage.getItem("userToken")
@@ -68,7 +74,7 @@ export default function WhichlistContextProvider (props){
 
 
 
-    return <whichlistContext.Provider value={{addWishlist ,setWhichlistCount,WhichlistCount,getAllWhichlistData,deletWhichData}}>
+    return <whichlistContext.Provider value={{addWishlist ,setWhichlistCount,WhichlistCount,getAllWhichlistData,deletWhichData,WhichlistProduct,setWhichlistProduct}}>
         {props.children}
     </whichlistContext.Provider>
 

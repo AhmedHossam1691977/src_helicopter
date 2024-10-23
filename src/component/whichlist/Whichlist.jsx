@@ -10,7 +10,7 @@ import { BsCartCheckFill } from "react-icons/bs";
 
 export default function Whichlist() {
   
-  const{getAllWhichlistData,deletWhichData} =useContext(whichlistContext)
+  const{getAllWhichlistData,deletWhichData,setWhichlistProduct} =useContext(whichlistContext)
   const [product , setProduct] =useState(null)
 
   let {addCart,setCartCount} =useContext(CartContext)
@@ -60,6 +60,8 @@ export default function Whichlist() {
     $(".loading").fadeIn(1000);
 
     let { data } = await deletWhichData(id);
+    console.log(data);
+    setWhichlistProduct(data.wishlist)
     setProduct(data)
     $(".loading").fadeOut(1000)
     
