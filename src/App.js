@@ -22,7 +22,7 @@ import ProductDetelse from './component/productDetelse/ProductDetelse.jsx'
 import ProductContextProvider from './context/productContext/ProductContext.js'
 import CartContextProvider from './context/cartConteext/cartContext.js'
 import Payment from './component/payment/Payment.jsx'
-import WhichlistContextProvider from './context/whichListcontext/WhichListcontext.js'
+import WhichlistContextProvider, { getAllWhichlistData, setWhichlistProduct } from './context/whichListcontext/WhichListcontext.js'
 import NotFound from './component/notFound/NotFound.jsx'
 import Setting from './component/setting/Setting.jsx'
 import Orders from './component/orders/Orders.jsx'
@@ -42,6 +42,7 @@ export default function App() {
   function Logout() {
     savedata(null)
     localStorage.removeItem("userToken")
+    setWhichlistProduct([]); // Clear the wishlist state
     return <Navigate to='/login' />
   }
 
@@ -71,9 +72,12 @@ export default function App() {
 
   }, [])
 
-
-
-  
+  // Fetch wishlist data on login
+  useEffect(() => {
+    if (userdata) {
+      getAllWhichlistData();
+    }
+  }, [userdata]);
 
   let Routes = createHashRouter([
     {

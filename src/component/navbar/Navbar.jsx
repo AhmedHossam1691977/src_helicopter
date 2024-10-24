@@ -9,31 +9,28 @@ import { Link } from 'react-router-dom';
 import { catigoryContext } from '../../context/catigoryCotext/CatigoryCotext.js';
 import { productContext } from '../../context/productContext/ProductContext.js';
 import { CartContext } from '../../context/cartConteext/cartContext.js';
-
+import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js';
 
 export default function Navbar({Logout , userdata}) {
-
 
   let {allCatigory} =useContext(catigoryContext)
   let {setProduct,product} = useContext(productContext)
   let{cartCount}=useContext(CartContext)
-  
-
+  let { getAllWhichlistData } = useContext(whichlistContext);
 
   const handleSearch = (event) => {
     const term = event.target.value;
     setProduct(term); 
-
-
   };
- 
+
+  useEffect(() => {
+    if (userdata) {
+      getAllWhichlistData();
+    }
+  }, [userdata]);
   
   useEffect(()=>{
   },[cartCount])
-
-
-
-
 
   return (
     <>
@@ -50,8 +47,6 @@ export default function Navbar({Logout , userdata}) {
           <div className="d-flex align-items-center justify-align-content-around">
             <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
 
-
-
             <li  className="nav-item form-mob mx-4">
               <form className='nav-link'>
                 <input 
@@ -63,7 +58,6 @@ export default function Navbar({Logout , userdata}) {
                 />
               </form>
                 </li>
-
 
             <Link className="nav-link px-3 fw-bold position-relative icons" to="cart">
                 <RiShoppingCart2Line className="cart " />
@@ -89,10 +83,7 @@ export default function Navbar({Logout , userdata}) {
               </li>:""}
                 </>:""}
 
-                    
-
               </div>
-           
           </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
@@ -124,25 +115,15 @@ export default function Navbar({Logout , userdata}) {
           </ul>
         </li>
 
-
-
               <li className="nav-item">
                 <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="product">المنتجات</Link>
               </li>
 
-
               {userdata ? <>
-              
-                
-
-                
-    
-              
               </>: <li className="nav-item">
                 <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup">انشاء حساب</Link>
               </li>}
             </ul>
-
 
             {/* الأيقونات على الشاشات الكبيرة */}
             <ul className="navbar-nav ms-auto d-none d-lg-flex">
