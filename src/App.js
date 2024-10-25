@@ -34,13 +34,15 @@ export default function App() {
   let [showToast, setShowToast] = useState(false)
 
 
+
   function savedata(data) {
     setuserdata(data) 
   }
 
   // Logout
-  function Logout() {
+  function Logout(setWhichlistProduct) {
     savedata(null)
+    setWhichlistProduct(0)
     localStorage.removeItem("userToken")
     return <Navigate to='/login' />
   }

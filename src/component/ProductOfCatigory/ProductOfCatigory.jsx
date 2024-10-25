@@ -14,7 +14,7 @@ import { productContext } from '../../context/productContext/ProductContext.js';
 export default function ProductOfCatigory() {
   const baseUrl = "https://project-model.onrender.com";
   let { addCart, setCartCount } = useContext(CartContext);
-  let { addWishlist, removeWishlist, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
+  let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
   let { product } = useContext(productContext);
 
   let { id } = useParams();
@@ -73,7 +73,7 @@ export default function ProductOfCatigory() {
   async function toggleWishlist(id) {
     try {
       if (wishlist.includes(id)) {
-        let { data } = await removeWishlist(id);
+        let { data } = await deletWhichData(id);
         if (data.message === "success") {
           setWhichlistProduct(data.wishlist);
           setWishlist(wishlist.filter(item => item !== id));

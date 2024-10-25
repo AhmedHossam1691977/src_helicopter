@@ -9,34 +9,63 @@ import { Link } from 'react-router-dom';
 import { catigoryContext } from '../../context/catigoryCotext/CatigoryCotext.js';
 import { productContext } from '../../context/productContext/ProductContext.js';
 import { CartContext } from '../../context/cartConteext/cartContext.js';
-
+import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js';
+import $ from "jquery";
 
 export default function Navbar({Logout , userdata}) {
-
 
   let {allCatigory} =useContext(catigoryContext)
   let {setProduct,product} = useContext(productContext)
   let{cartCount}=useContext(CartContext)
-  
-
+  let { getAllWhichlistData ,setWhichlistProduct } = useContext(whichlistContext);
 
   const handleSearch = (event) => {
     const term = event.target.value;
     setProduct(term); 
-
-
   };
- 
+
+  useEffect(() => {
+    if (userdata) {
+      getAllWhichlistData();
+    }
+  }, [userdata]);
   
   useEffect(()=>{
   },[cartCount])
 
 
+  function logOut(){
+    $(".loading").fadeIn(1000);
+    Logout(setWhichlistProduct)
+    $(".loading").fadeOut(1000);
 
-
+  }
 
   return (
     <>
+
+
+<div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
+        <div id="wifi-loader">
+          <svg className="circle-outer" viewBox="0 0 86 86">
+            <circle className="back" cx="43" cy="43" r="40"></circle>
+            <circle className="front" cx="43" cy="43" r="40"></circle>
+            <circle className="new" cx="43" cy="43" r="40"></circle>
+          </svg>
+          <svg className="circle-middle" viewBox="0 0 60 60">
+            <circle className="back" cx="30" cy="30" r="27"></circle>
+            <circle className="front" cx="30" cy="30" r="27"></circle>
+          </svg>
+          <svg className="circle-inner" viewBox="0 0 34 34">
+            <circle className="back" cx="17" cy="17" r="14"></circle>
+            <circle className="front" cx="17" cy="17" r="14"></circle>
+          </svg>
+          <div className="text" data-text="loading..."></div>
+        </div>
+      </div>
+
+
+
       <nav className="navbar navbar-expand-lg py-2">
         <div className="container">
           <Link className="navbar-brand fw-bolder fs-3" to="/"><span className='fs-2 fw-bolder text-danger'>H</span>elicopter</Link>
@@ -50,8 +79,6 @@ export default function Navbar({Logout , userdata}) {
           <div className="d-flex align-items-center justify-align-content-around">
             <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
 
-
-
             <li  className="nav-item form-mob mx-4">
               <form className='nav-link'>
                 <input 
@@ -63,7 +90,6 @@ export default function Navbar({Logout , userdata}) {
                 />
               </form>
                 </li>
-
 
             <Link className="nav-link px-3 fw-bold position-relative icons" to="cart">
                 <RiShoppingCart2Line className="cart " />
@@ -84,15 +110,12 @@ export default function Navbar({Logout , userdata}) {
                 <ul className="dropdown-menu dropdown-menus">
                   <li><Link className="dropdown-item py-2 text-white" to="setting"><IoSettingsOutline className="mx-2 text-white cart"/> الاعدادات</Link></li>
                   <li><Link className="dropdown-item text-white" to="orders"><BsBagHeart className="mx-2 text-white cart"/>الطلبات</Link></li>
-                  <li><Link className="dropdown-item py-2 text-white" to="#"><span onClick={Logout}><CiLogout className="mx-2 text-white cart"/>تسجيل الخروج</span></Link></li>
+                  <li><Link className="dropdown-item py-2 text-white" to="#"><span onClick={logOut}><CiLogout className="mx-2 text-white cart"/>تسجيل الخروج</span></Link></li>
                 </ul>
               </li>:""}
                 </>:""}
 
-                    
-
               </div>
-           
           </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0">
@@ -124,25 +147,15 @@ export default function Navbar({Logout , userdata}) {
           </ul>
         </li>
 
-
-
               <li className="nav-item">
                 <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="product">المنتجات</Link>
               </li>
 
-
               {userdata ? <>
-              
-                
-
-                
-    
-              
               </>: <li className="nav-item">
                 <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup">انشاء حساب</Link>
               </li>}
             </ul>
-
 
             {/* الأيقونات على الشاشات الكبيرة */}
             <ul className="navbar-nav ms-auto d-none d-lg-flex">
@@ -182,7 +195,7 @@ export default function Navbar({Logout , userdata}) {
                 <ul className="dropdown-menu dropdown-menus">
                   <li><Link className="dropdown-item py-2 text-white" to="setting"><IoSettingsOutline className="mx-2 text-white cart"/> الاعدادات</Link></li>
                   <li><Link className="dropdown-item text-white" to="orders"><BsBagHeart className="mx-2 text-white cart"/>الطلبات</Link></li>
-                  <li><Link className="dropdown-item py-2 text-white" to="#"><span onClick={Logout}><CiLogout className="mx-2 text-white cart"/>تسجيل الخروج</span></Link></li>
+                  <li><Link className="dropdown-item py-2 text-white" to="#"><span onClick={logOut}><CiLogout className="mx-2 text-white cart"/>تسجيل الخروج</span></Link></li>
                 </ul>
               </li>:""}
             </ul>

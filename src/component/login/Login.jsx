@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import img from "./../../assits/a1c7dc5b68a42239311e510f54d8cd59.jpeg"
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import axios from 'axios';
 import { useFormik } from 'formik';
 import $ from "jquery"
-
+import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js'
 
 export default function Login({savedata}) {
   let [loading,setloading]=useState(false)
@@ -14,6 +14,7 @@ export default function Login({savedata}) {
 
   const basurl = "https://project-model.onrender.com"
   let nav = useNavigate()
+  const { getAllWhichlistData, setWhichlistProduct } = useContext(whichlistContext);
 
   useEffect(()=>{
 $(".loading").fadeOut(1000)
@@ -59,6 +60,8 @@ $(".loading").fadeOut(1000)
       localStorage.setItem('userName', data.user.userName);
       localStorage.setItem('userEmail', data.user.email);
 
+      const whlistData = await getAllWhichlistData();
+      setWhichlistProduct(whlistData.data.wishlist);
 
       savedata(data.user)
       nav('/')
