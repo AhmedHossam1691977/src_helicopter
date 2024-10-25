@@ -1,113 +1,117 @@
-import React, { useEffect, useState } from 'react'
-import img from "./../../assits/a1c7dc5b68a42239311e510f54d8cd59.jpeg"
+import React, { useEffect, useState } from 'react';
+import img from "./../../assits/a1c7dc5b68a42239311e510f54d8cd59.jpeg";
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import axios from 'axios';
 import { useFormik } from 'formik';
-import $ from "jquery"
-
+import $ from "jquery";
 
 export default function ForgetPassword() {
+  useEffect(() => {
+    $(".loading").fadeOut(1000);
+  }, []);
 
-  useEffect(()=>{
-    $(".loading").fadeOut(1000)
-    },[])
-    
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const basurl = "https://project-model.onrender.com";
+  const nav = useNavigate();
 
-  let [loading,setloading]=useState(false)
-
-  let [errorMessage,setErrorMessage]=useState("")
-
-  const basurl = "https://project-model.onrender.com"
-  let nav = useNavigate()
-
-
-
-  let validationSchema = Yup.object({
-    email: Yup.string().email("enter valid email").required("Username Required").min(3, "min length 3"),
+  // Validation schema for the form
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Enter a valid email").required("Email is required").min(3, "Minimum length is 3"),
   });
 
-  let registeform = useFormik({
+  // Formik setup for form handling
+  const registeform = useFormik({
     initialValues: {
-
       email: "",
-
     },
     onSubmit,
     validationSchema,
   });
 
-
-
-  async function onSubmit(valus){
-    $(".loading").fadeIn(1000)
-    setloading(true)
-    let {data}=await axios.post(`${basurl}/api/v1/auth/forgetPassword`,valus).catch((error)=>{
-        setErrorMessage(error.response.data.error)
-        
-    setloading(false)
-    })
-    $(".loading").fadeOut(1000)
-
-    if(data.message == 'success'){
-      $(".loading").fadeIn(1000)
-      setloading(false)
-      localStorage.setItem('userToken', data.token);
-      nav('/verifyResetCode')
-      $(".loading").fadeOut(1000)
+  // Function to handle form submission
+  async function onSubmit(values) {
+    $(".loading").fadeIn(1000);
+    setLoading(true);
+    try {
+      const { data } = await axios.post(`${basurl}/api/v1/auth/forgetPassword`, values);
+      if (data.message === 'success') {
+        localStorage.setItem('userToken', data.token);
+        nav('/verifyResetCode');
+      }
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
+    } finally {
+      $(".loading").fadeOut(1000);
+      setLoading(false);
     }
   }
 
-  return <>
-  
-  <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50  bg-white  ">
-  
-  <div id="wifi-loader">
-      <svg class="circle-outer" viewBox="0 0 86 86">
-          <circle class="back" cx="43" cy="43" r="40"></circle>
-          <circle class="front" cx="43" cy="43" r="40"></circle>
-          <circle class="new" cx="43" cy="43" r="40"></circle>
-      </svg>
-      <svg class="circle-middle" viewBox="0 0 60 60">
-          <circle class="back" cx="30" cy="30" r="27"></circle>
-          <circle class="front" cx="30" cy="30" r="27"></circle>
-      </svg>
-      <svg class="circle-inner" viewBox="0 0 34 34">
-          <circle class="back" cx="17" cy="17" r="14"></circle>
-          <circle class="front" cx="17" cy="17" r="14"></circle>
-      </svg>
-      <div class="text" data-text="loading..."></div>
-  </div>
-      </div>
-
-
-  <div className="container-fluid py-5">
-  <div className="row">
-    <div className="col-md-7">
-      <img className='w-100' src={img} alt="" />
-    </div>
-    <div className="col-md-5 py-5 px-5 d-flex align-items-center justify-content-center">
-      <div className='w-100'>
-        <h2 className='text-end'>نسيت <span className='text-danger'>كلمه السر </span></h2>
-        {errorMessage == "" ? "":<div className="alert alert-danger">{errorMessage}</div>}
-        <form className='py-3' onSubmit={registeform.handleSubmit} >
-          
-        <div className="my-3">
-                  <input className="form-control form border-bottom border-1 border-dark custom-input text-end" type="email" name="email" id="email" placeholder="ادخل الاميل الخاص بك" onChange={registeform.handleChange} onBlur={registeform.handleBlur} />
-                  {registeform.touched.email ?<p className="text-danger">{registeform.errors.email}</p> :""}
+  return (
+    <>
+      <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
+        <div id="wifi-loader">
+          <svg className="circle-outer" viewBox="0 0 86 86">
+            <circle className="back" cx="43" cy="43" r="40"></circle>
+            <circle className="front" cx="43" cy="43" r="40"></circle>
+            <circle className="new" cx="43" cy="43" r="40"></circle>
+          </svg>
+          <svg className="circle-middle" viewBox="0 0 60 60">
+            <circle className="back" cx="30" cy="30" r="27"></circle>
+            <circle className="front" cx="30" cy="30" r="27"></circle>
+          </svg>
+          <svg className="circle-inner" viewBox="0 0 34 34">
+            <circle className="back" cx="17" cy="17" r="14"></circle>
+            <circle className="front" cx="17" cy="17" r="14"></circle>
+          </svg>
+          <div className="text" data-text="loading..."></div>
         </div>
-        
-
-
-
-       <div className='d-flex align-items-center justify-content-center'>
-       {loading ?<button type='button' className='btn btn-danger w-100 me-auto  d-block'><i className="fa-solid fa-spinner fa-spin"></i></button>:<button disabled={!(registeform.isValid && registeform.dirty)} type="submit"className="btn btn-danger me-auto  d-block w-100 my-3">ارسل الكود</button>}  
-       </div>
-        </form>
       </div>
-    </div>
-  </div>
-</div>
-  </>
+
+      <div className="container-fluid py-5">
+        <div className="row">
+          <div className="col-md-7">
+            <img className="w-100" src={img} alt="Forget Password" />
+          </div>
+          <div className="col-md-5 py-5 px-5 d-flex align-items-center justify-content-center">
+            <div className="w-100">
+              <h2 className="text-end">نسيت <span className="text-danger">كلمه السر</span></h2>
+              {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+              <form className="py-3" onSubmit={registeform.handleSubmit}>
+                <div className="my-3">
+                  <input
+                    className="form-control form border-bottom border-1 border-dark custom-input text-end"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="ادخل الاميل الخاص بك"
+                    onChange={registeform.handleChange}
+                    onBlur={registeform.handleBlur}
+                  />
+                  {registeform.touched.email && <p className="text-danger">{registeform.errors.email}</p>}
+                </div>
+                <div className="d-flex align-items-center justify-content-center">
+                  {loading ? (
+                    <button type="button" className="btn btn-danger w-100 me-auto d-block">
+                      <i className="fa-solid fa-spinner fa-spin"></i>
+                    </button>
+                  ) : (
+                    <button
+                      disabled={!(registeform.isValid && registeform.dirty)}
+                      type="submit"
+                      className="btn btn-danger me-auto d-block w-100 my-3"
+                    >
+                      ارسل الكود
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

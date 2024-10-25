@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { CartContext } from '../../context/cartConteext/cartContext.js';
 import $ from "jquery";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Payment() {
   const [userDetels, setUserDetels] = useState(null);

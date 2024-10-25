@@ -25,19 +25,19 @@ export default function Product() {
 
   const nav = useNavigate();
 
-  // تحميل المزيد من المنتجات عند تمرير الصفحة
+  // Load more products when scrolling
   useEffect(() => {
     loadMoreProducts(page);
   }, [page]);
 
-  // البحث عن المنتجات
+  // Search for products
   useEffect(() => {
     if (product) {
       searchProducts();
     }
   }, [product]);
 
-  // تحديث حالة wishlist عند تحميل الصفحة
+  // Update wishlist state when loading the page
   useEffect(() => {
     if (WhichlistProduct) {
       const wishlistIds = WhichlistProduct.map(item => item._id);
@@ -45,8 +45,7 @@ export default function Product() {
     }
   }, [WhichlistProduct]);
 
-
-  // مراقب آخر عنصر للتحميل التلقائي
+  // Observer for the last product element to auto-load more products
   const lastProductElementRef = useCallback(node => {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
@@ -57,7 +56,7 @@ export default function Product() {
     if (node) observer.current.observe(node);
   }, [hasMore]);
 
-  // تحميل المنتجات بالصفحة
+  // Load products by page
   async function loadMoreProducts(page) {
     try {
       $(".loading").fadeIn(1000);
@@ -76,7 +75,7 @@ export default function Product() {
     }
   }
 
-  // البحث عن المنتجات بناءً على الكلمات المفتاحية
+  // Search for products based on keywords
   async function searchProducts() {
     try {
       const { data } = await axios.get(`${baseUrl}/api/v1/product?keyword=${product}`);
@@ -92,7 +91,7 @@ export default function Product() {
     }
   }
 
-  // إضافة إلى العربة
+  // Add to cart
   async function addToChart(id) {
     try {
       let { data } = await addCart(id);
@@ -117,7 +116,7 @@ export default function Product() {
     }
   }
 
-  // إضافة أو إزالة من المفضلة
+  // Add or remove from wishlist
   async function toggleWishlist(id) {
     try {
       if (wishlist.includes(id)) {

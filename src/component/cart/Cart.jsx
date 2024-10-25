@@ -3,11 +3,11 @@ import { CartContext } from "../../context/cartConteext/cartContext.js";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { FaCcAmazonPay } from "react-icons/fa";
-import "./cart.css"
+import "./cart.css";
+
 export default function Cart() {
   const [cartData, setCartData] = useState(null);
   const {
-    errorCart,
     cartCount,
     getAllCartData,
     deletCartData,
@@ -17,60 +17,59 @@ export default function Cart() {
   } = useContext(CartContext);
   let nav = useNavigate();
 
+  // Fetch cart data on component mount
   useEffect(() => {
     $(".loading").fadeIn(1000);
     getData();
     $(".loading").fadeOut(1000);
   }, []);
 
+  // Function to get cart data
   async function getData() {
     const { data } = await getAllCartData();
-    console.log("product", data.cart.cartItems);
     setCartData(data.cart);
-    console.log(data.cartItems);
   }
 
+  // Function to update product quantity in the cart
   async function updateCount(id, quantity) {
     let { data } = await updateProductQuantany(id, quantity);
     setCartData(data.cart);
   }
 
+  // Function to delete a product from the cart
   async function deletProduct(id) {
     $(".loading").fadeIn(1000);
-
     let { data } = await deletCartData(id);
-    if (data.message == "success") {
+    if (data.message === "success") {
       $(".loading").fadeOut(1000);
-
       setCartData(data.cart);
       setCartCount(data.cartItems);
-      console.log(id);
     }
   }
 
+  // Function to delete all products from the cart
   async function deletAllProduct() {
     $(".loading").fadeIn(1000);
     let { data } = await deletAllCartData();
     setCartData(data.cart);
     setCartCount(data.cartItems);
-    if (data.message == "success") {
+    if (data.message === "success") {
       $(".loading").fadeOut(1000);
-
       nav("/");
     }
   }
 
+  // Function to handle payment
   function handlePayment() {
     if (cartData && cartData._id) {
       nav(`/payment/${cartData._id}`);
     }
   }
 
+  // Function to handle image click and navigate to product details
   const handleImageClick = (id) => {
     nav(`/productDetelse/${id}`);
   };
-
-
 
   return (
     <>
@@ -117,107 +116,114 @@ export default function Cart() {
               <p>الكمية</p>
             </div>
           </div>
-      {cartData ?<>
-      
-        {cartData?.cartItems.map((elm) => {
-            if (elm.quantity == 0) {
-              deletProduct(elm._id);
-            }
-            return (
-              <div className="col-md-12 my-2" key={elm._id}>
-                <div className="d-flex align-items-center justify-content-between border border-2 px-2 py-2">
-                  <div onClick={() => handleImageClick(elm.product._id)} className="w-100 position-relative d-flex align-items-center pointer">
-                    <img
-                      src={elm.product?.imgCover || "default-image-path.jpg"}
-                      className="cart-image"
-                      alt=""
-                    />
-                    <p className="fw-bolder px-3 text-danger">
-                      {elm.product?.title.split(" ").slice(0,2).join(" ") || "No title available"}
-                    </p>
-                  </div>
-                  <div className="w-100 position-relative d-flex align-items-center justify-content-center">
-                    <p className="fw-bolder px-3">
-                      <span className="text-danger">{elm.price}</span> جنيه
-                    </p>
-                  </div>
-                  <div className="w-100 position-relative d-flex align-items-center justify-content-end">
-                    <div className="col-md-5 d-flex justify-content-center align-items-center">
-                      <span
-                        onClick={() => updateCount(elm._id, elm.quantity + 1)}
-                        className="btn btn-white border border-success btn-sm"
+          {cartData ? (
+            <>
+              {cartData?.cartItems.map((elm) => {
+                if (elm.quantity === 0) {
+                  deletProduct(elm._id);
+                }
+                return (
+                  <div className="col-md-12 my-2" key={elm._id}>
+                    <div className="d-flex align-items-center justify-content-between border border-2 px-2 py-2">
+                      <div
+                        onClick={() => handleImageClick(elm.product._id)}
+                        className="w-100 position-relative d-flex align-items-center pointer"
                       >
-                        +
-                      </span>
-                      <span className="px-2 fs-4">{elm.quantity}</span>
-                      <span
-                        onClick={() => updateCount(elm._id, elm.quantity - 1)}
-                        className="btn btn-white border border-danger btn-sm"
+                        <img
+                          src={elm.product?.imgCover || "default-image-path.jpg"}
+                          className="cart-image"
+                          alt=""
+                        />
+                        <p className="fw-bolder px-3 text-danger">
+                          {elm.product?.title.split(" ").slice(0, 2).join(" ") || "No title available"}
+                        </p>
+                      </div>
+                      <div className="w-100 position-relative d-flex align-items-center justify-content-center">
+                        <p className="fw-bolder px-3">
+                          <span className="text-danger">{elm.price}</span> جنيه
+                        </p>
+                      </div>
+                      <div className="w-100 position-relative d-flex align-items-center justify-content-end">
+                        <div className="col-md-5 d-flex justify-content-center align-items-center">
+                          <span
+                            onClick={() => updateCount(elm._id, elm.quantity + 1)}
+                            className="btn btn-white border border-success btn-sm"
+                          >
+                            +
+                          </span>
+                          <span className="px-2 fs-4">{elm.quantity}</span>
+                          <span
+                            onClick={() => updateCount(elm._id, elm.quantity - 1)}
+                            className="btn btn-white border border-danger btn-sm"
+                          >
+                            -
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-100 d-flex justify-content-end ">
+                      <button
+                        onClick={() => deletProduct(elm._id || "No title available")}
+                        className="btn text-white bg-danger border border-3 p-1 "
                       >
-                        -
-                      </span>
+                        <i className="fa-regular fa-trash-can px-1 text-white px-2"></i>حذف
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            ""
+          )}
+          {cartData ? (
+            <>
+              {cartData && (
+                <div className="col-12 d-flex align-items-center justify-content-end">
+                  <div className="total-price w-100">
+                    <p className="d-flex justify-content-end m-3 fs-3 fw-bolder">
+                      الحساب
+                    </p>
+                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                      جنيه{" "}
+                      <span className="text-danger px-2">
+                        {cartData.totalPrice || "0"}
+                      </span>{" "}
+                      : سعرالمنتج{" "}
+                    </p>
+                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                      جنيه{" "}
+                      <span className="text-danger px-2">
+                        {cartData.delevary || "0"}
+                      </span>{" "}
+                      : سعرالتوصيل{" "}
+                    </p>
+                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                      جنيه{" "}
+                      <span className="text-danger px-2">
+                        {5 || "0"}
+                      </span>{" "}
+                      : سعر الخدمه{" "}
+                    </p>
+                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                      جنيه{" "}
+                      <span className="text-danger px-2">
+                        {cartData.totalPrice + cartData.delevary + 5 || "0"}
+                      </span>{" "}
+                      : سعرالكلي{" "}
+                    </p>
+                    <div className="w-100 d-flex align-items-center justify-content-center my-2">
+                      <button onClick={handlePayment} className="btn btn-danger w-50">
+                        <FaCcAmazonPay className="fw-bolder fs-3" />
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div className="w-100 d-flex justify-content-end ">
-                  <button
-                    onClick={() => deletProduct(elm._id || "No title available")}
-                    className="btn text-white bg-danger border border-3 p-1 "
-                  >
-                    <i className="fa-regular fa-trash-can px-1 text-white px-2"></i>حذف
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-
-      </>:""}
-{cartData ?<>
-
-  {cartData && (
-  <div className="col-12 d-flex align-items-center justify-content-end">
-    <div className="total-price w-100">
-      <p className="d-flex justify-content-end m-3 fs-3 fw-bolder">
-        الحساب
-      </p>
-      <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
-        جنيه{" "}
-        <span className="text-danger px-2">
-          {cartData.totalPrice || "0"}
-        </span>{" "}
-        : سعرالمنتج{" "}
-      </p>
-      <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
-        جنيه{" "}
-        <span className="text-danger px-2">
-          {cartData.delevary || "0"}
-        </span>{" "}
-        : سعرالتوصيل{" "}
-      </p>
-      <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
-        جنيه{" "}
-        <span className="text-danger px-2">
-          {5 || "0"}
-        </span>{" "}
-        : سعر الخدمه{" "}
-      </p>
-      <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
-        جنيه{" "}
-        <span className="text-danger px-2">
-          {cartData.totalPrice + cartData.delevary + 5 || "0"}
-        </span>{" "}
-        : سعرالكلي{" "}
-      </p>
-      <div className="w-100 d-flex align-items-center justify-content-center my-2">
-        <button onClick={handlePayment} className="btn btn-danger w-50">
-          <FaCcAmazonPay className="fw-bolder fs-3" />
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
-</> :""}
+              )}
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

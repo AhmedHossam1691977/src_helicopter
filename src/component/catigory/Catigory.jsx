@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./catigory.css"
+
 export default function Catigory() {
   const baseUrl = "https://project-model.onrender.com";
   const [catigory, setCatigory] = useState([]);
@@ -11,15 +12,16 @@ export default function Catigory() {
     allCatigory();
   }, []);
 
+  // Fetch all categories from the API
   async function allCatigory() {
     const { data } = await axios.get(`${baseUrl}/api/v1/categories`).catch((err) => {
-      console.log(err);
+      // Handle error
     });
 
     setCatigory(data.categories);
   }
 
-  // هذه الدالة ترسل id الفئة في params
+  // Navigate to the category's products page with the category ID
   function handleCatigoryClick(id) {
     navigate(`/productOfCatigory/${id}`); // يتم التوجيه مع إرسال الـ id
   }

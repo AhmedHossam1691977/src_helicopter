@@ -4,29 +4,28 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import $ from "jquery"
+import $ from "jquery";
 
-export default function ResetEmail({savedata}) {
+export default function ResetEmail({ savedata }) {
+  useEffect(() => {
+    $(".loading").fadeOut(1000);
+  }, []);
 
-
-  useEffect(()=>{
-    $(".loading").fadeOut(1000)
-    },[])
-    
-    
-
-  let [loading, setloading] = useState(false);
-
-  let [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const basurl = "https://portfolio-api-p4u7.onrender.com";
-  let nav = useNavigate();
+  const nav = useNavigate();
 
-  let validationSchema = Yup.object({
-    code: Yup.number().required("Code is required").test('len', 'Code must be exactly 6 digits', (val) => val && val.toString().length === 6),
+  // Validation schema for the form
+  const validationSchema = Yup.object({
+    code: Yup.number()
+      .required("Code is required")
+      .test("len", "Code must be exactly 6 digits", (val) => val && val.toString().length === 6),
   });
 
-  let registeform = useFormik({
+  // Formik setup for form handling
+  const registeform = useFormik({
     initialValues: {
       code: "",
     },
@@ -34,49 +33,46 @@ export default function ResetEmail({savedata}) {
     validationSchema,
   });
 
+  // Function to handle form submission
   async function onSubmit(valus) {
-    $(".loading").fadeIn(1000)
-    setloading(true);
-    let { data } = await axios
-      .post(`${basurl}/api/v1/auth/resetEmail`, valus)
-      .catch((error) => {
-        setErrorMessage(error.response.data.error);
-        setloading(false);
-      });
-      $(".loading").fadeOut(1000)
-
-    if (data.message == "success") {
-      $(".loading").fadeIn(1000)
-      nav("/userAddress");
-      savedata(data.user)
-      localStorage.setItem("userToken",data.token)
-      $(".loading").fadeOut(1000)
+    $(".loading").fadeIn(1000);
+    setLoading(true);
+    try {
+      const { data } = await axios.post(`${basurl}/api/v1/auth/resetEmail`, valus);
+      if (data.message === "success") {
+        nav("/userAddress");
+        savedata(data.user);
+        localStorage.setItem("userToken", data.token);
+      }
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
+    } finally {
+      $(".loading").fadeOut(1000);
+      setLoading(false);
     }
-    
-
   }
+
   return (
     <>
-      <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50  bg-white  ">
-  
-  <div id="wifi-loader">
-      <svg class="circle-outer" viewBox="0 0 86 86">
-          <circle class="back" cx="43" cy="43" r="40"></circle>
-          <circle class="front" cx="43" cy="43" r="40"></circle>
-          <circle class="new" cx="43" cy="43" r="40"></circle>
-      </svg>
-      <svg class="circle-middle" viewBox="0 0 60 60">
-          <circle class="back" cx="30" cy="30" r="27"></circle>
-          <circle class="front" cx="30" cy="30" r="27"></circle>
-      </svg>
-      <svg class="circle-inner" viewBox="0 0 34 34">
-          <circle class="back" cx="17" cy="17" r="14"></circle>
-          <circle class="front" cx="17" cy="17" r="14"></circle>
-      </svg>
-      <div class="text" data-text="loading..."></div>
-  </div>
+      <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
+        <div id="wifi-loader">
+          <svg className="circle-outer" viewBox="0 0 86 86">
+            <circle className="back" cx="43" cy="43" r="40"></circle>
+            <circle className="front" cx="43" cy="43" r="40"></circle>
+            <circle className="new" cx="43" cy="43" r="40"></circle>
+          </svg>
+          <svg className="circle-middle" viewBox="0 0 60 60">
+            <circle className="back" cx="30" cy="30" r="27"></circle>
+            <circle className="front" cx="30" cy="30" r="27"></circle>
+          </svg>
+          <svg className="circle-inner" viewBox="0 0 34 34">
+            <circle className="back" cx="17" cy="17" r="14"></circle>
+            <circle className="front" cx="17" cy="17" r="14"></circle>
+          </svg>
+          <div className="text" data-text="loading..."></div>
+        </div>
       </div>
-      
+
       <div className="container-fluid py-5">
         <div className="row align-items-center">
           <div className="col-md-7">
@@ -85,20 +81,37 @@ export default function ResetEmail({savedata}) {
           <div className="col-md-5 py-5 px-5">
             <div className="px-5">
               <h2 className="text-end my-2">
-              إعادة تعيين   <span className=" text-danger"> الرمز</span>
+                إعادة تعيين <span className="text-danger">الرمز</span>
               </h2>
 
-              {errorMessage == "" ? "" : 
-                <div className="alert alert-danger">{errorMessage}</div>}
+              {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
               <form onSubmit={registeform.handleSubmit}>
                 <div className="my-3">
-                  <input className="form-control form border-bottom border-1 border-dark custom-input text-end" type="text" name="code" id="code" placeholder="ادخل الكود" onChange={registeform.handleChange} onBlur={registeform.handleBlur} />
-                  {registeform.touched.code ? <p className="text-danger">{registeform.errors.code}</p> : ""}
+                  <input
+                    className="form-control form border-bottom border-1 border-dark custom-input text-end"
+                    type="text"
+                    name="code"
+                    id="code"
+                    placeholder="ادخل الكود"
+                    onChange={registeform.handleChange}
+                    onBlur={registeform.handleBlur}
+                  />
+                  {registeform.touched.code && <p className="text-danger">{registeform.errors.code}</p>}
                 </div>
 
-            
-                {loading ? <button type="button" className="btn btn-danger m-auto d-block w-100 my-3"><i className="fa-solid fa-spinner fa-spin"></i></button> : <button disabled={!(registeform.isValid && registeform.dirty)} type="submit" className="btn btn-danger m-auto d-block w-100 my-3 fw-bold">تاكيد الكود</button>}
-
+                {loading ? (
+                  <button type="button" className="btn btn-danger m-auto d-block w-100 my-3">
+                    <i className="fa-solid fa-spinner fa-spin"></i>
+                  </button>
+                ) : (
+                  <button
+                    disabled={!(registeform.isValid && registeform.dirty)}
+                    type="submit"
+                    className="btn btn-danger m-auto d-block w-100 my-3 fw-bold"
+                  >
+                    تاكيد الكود
+                  </button>
+                )}
               </form>
             </div>
           </div>

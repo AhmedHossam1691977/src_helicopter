@@ -43,25 +43,27 @@ export default function ProductOfCatigory() {
       const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}`);
       setAllCatigory(data.category);
       setAllProduct(data.category.allProduct);
-      console.log(data.category.allProduct);
     } catch (err) {
-      console.log(err);
+      // Handle error
     }
     $(".loading").fadeOut(1000);
   }
 
   async function addToChart(id) {
-    let { data } = await addCart(id);
-    console.log(data);
-    if (data.message === "success") {
-      setCartCount(data.cartItems);
-      toast.success(data.message, {
-        position: 'top-center',
-        className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
-        duration: 1000,
-        icon: '👏'
-      });
-    } else {
+    try {
+      let { data } = await addCart(id);
+      if (data.message === "success") {
+        setCartCount(data.cartItems);
+        toast.success(data.message, {
+          position: 'top-center',
+          className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
+          duration: 1000,
+          icon: '👏'
+        });
+      } else {
+        throw new Error("Error adding to cart");
+      }
+    } catch (error) {
       toast.error("Error", {
         position: 'top-right',
         className: 'border border-danger p-2',

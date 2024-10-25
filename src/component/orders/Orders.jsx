@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./orders.css"
+
 export default function Orders() {
   const baseUrl = "https://project-model.onrender.com";
   const [allOrders, setAllOrders] = useState([]);
@@ -9,22 +10,22 @@ export default function Orders() {
     userOrders();
   }, []);
 
+  // Fetch user orders from the API
   async function userOrders() {
-    const { data } = await axios
-      .get(`${baseUrl}/api/v1/order`, {
+    try {
+      const { data } = await axios.get(`${baseUrl}/api/v1/order`, {
         headers: {
           token: localStorage.getItem("userToken"),
         },
-      })
-      .catch((err) => {
-        console.log(err);
       });
-
-    setAllOrders(data.order);
+      setAllOrders(data.order);
+    } catch (err) {
+      // Handle error
+    }
   }
 
   return (
-    <div className="container" >
+    <div className="container">
       <div className="row">
         <div className="col-md-12 my-5">
           <p className='fw-bolder fs-2 text-end text-danger'>الطلبات</p>
@@ -44,12 +45,12 @@ export default function Orders() {
   );
 }
 
-// مكوّن فرعي لعرض الطلب
+// Component to display individual order
 function OrderItem({ order }) {
   const calculateElapsedTime = (orderDate) => {
     const now = new Date();
     const deliverDate = new Date(orderDate);
-    const timeDifference = now - deliverDate; // حساب الوقت المنقضي
+    const timeDifference = now - deliverDate; // Calculate elapsed time
 
     const seconds = Math.floor((timeDifference / 1000) % 60);
     const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
@@ -63,14 +64,14 @@ function OrderItem({ order }) {
 
   useEffect(() => {
     if (order.isPaid) {
-      return; // وقف العد إذا تم الدفع
+      return; // Stop the timer if the order is paid
     }
 
     const timer = setInterval(() => {
       setTimePassed(calculateElapsedTime(order.DeliverdAt));
     }, 1000);
 
-    return () => clearInterval(timer); // تنظيف المؤقت عند إلغاء تحميل العنصر
+    return () => clearInterval(timer); // Clean up the timer on component unmount
   }, [order.isPaid, order.DeliverdAt]);
 
   return (
@@ -96,21 +97,23 @@ function OrderItem({ order }) {
           {(() => {
             const date = new Date(order.DeliverdAt);
             const day = date.getDate().toString().padStart(2, "0");
-            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // الأشهر تبدأ من 0
+            const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
             const year = date.getFullYear();
             return `${day}-${month}-${year}`;
           })()}
         </span>
       </p>
 
-      {order.isDeliverd == true?"":<>
-        <p className="text-end fw-bolder fs-4">
-          الوقت المتبقي:{" "}
-          <span className="text-danger">
-            {`${timePassed.minutes} دقيقة ${timePassed.seconds} ثانية`}
-          </span>
-        </p>
-      </> }
+      {order.isDeliverd == true ? "" : (
+        <>
+          <p className="text-end fw-bolder fs-4">
+            الوقت المتبقي:{" "}
+            <span className="text-danger">
+              {`${timePassed.minutes} دقيقة ${timePassed.seconds} ثانية`}
+            </span>
+          </p>
+        </>
+      )}
     </div>
   );
 }

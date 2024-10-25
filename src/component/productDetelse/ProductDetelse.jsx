@@ -32,6 +32,7 @@ export default function ProductDetelse() {
     }
   }, [catigoryId]);
 
+  // Fetch product details
   async function productDetels() {
     try {
       const { data } = await axios.get(`${baseUrl}/api/v1/product/${id}`);
@@ -44,6 +45,7 @@ export default function ProductDetelse() {
     }
   }
 
+  // Fetch category details
   async function catigory() {
     try {
       const { data } = await axios.get(`${baseUrl}/api/v1/categories/${catigoryId}`);
@@ -76,6 +78,7 @@ export default function ProductDetelse() {
     }
   };
 
+  // Handle category click
   async function handleCatigoryClick(id) {
     $(".loading").fadeIn(1000);
     try {
@@ -90,6 +93,7 @@ export default function ProductDetelse() {
     $(".loading").fadeOut(1000);
   }
 
+  // Add product to cart
   async function addToChart(id) {
     $(".loading").fadeIn(1000);
     try {
