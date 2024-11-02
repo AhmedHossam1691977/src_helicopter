@@ -121,6 +121,8 @@ export default function Product() {
     try {
       if (wishlist.includes(id)) {
         let { data } = await deletWhichData(id);
+        console.log(data);
+        
         if (data.message === "success") {
           setWhichlistProduct(data.wishlist)
           setWishlist(wishlist.filter(item => item !== id));
@@ -155,6 +157,7 @@ export default function Product() {
       if(!localStorage.getItem("userToken")){
         nav("/login");
       }
+     
       toast.error("Failed to update wishlist. Please try again.", {
         position: 'top-center',
         className: 'border border-danger p-2 ',

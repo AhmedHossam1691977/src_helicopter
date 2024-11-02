@@ -30,9 +30,7 @@ export default function WhichlistContextProvider(props) {
   }
 
   async function addWishlist(id) {
-    await axios.patch(
-      `https://project-model.onrender.com/api/v1/wishlist`,
-      { product: id },
+      return await axios.patch(`https://project-model.onrender.com/api/v1/wishlist`,{ product: id },
       {
         headers: {
           token: localStorage.getItem("userToken"),
@@ -40,13 +38,13 @@ export default function WhichlistContextProvider(props) {
       }
     );
     // Fetch the updated wishlist data from the server
-    let { data } = await getAllWhichlistData();
-    setWhichlistProduct(data.wishlist);
-    setWhichlistCount(data.wishlist.length);
+  
+
+   
   }
 
   async function deletWhichData(id) {
-    await axios.delete(
+    return await axios.delete(
       `https://project-model.onrender.com/api/v1/wishlist/${id}`,
       {
         headers: {
@@ -54,10 +52,9 @@ export default function WhichlistContextProvider(props) {
         },
       }
     );
-    // Fetch the updated wishlist data from the server
-    let { data } = await getAllWhichlistData();
-    setWhichlistProduct(data.wishlist);
-    setWhichlistCount(data.wishlist.length);
+  
+
+    
   }
 
   return (
