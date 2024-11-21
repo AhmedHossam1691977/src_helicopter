@@ -4,24 +4,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { CartContext } from '../../context/cartConteext/cartContext.js';
-import $ from "jquery";
-import { jwtDecode } from 'jwt-decode';
+
 
 export default function Payment() {
-  const [userDetels, setUserDetels] = useState(null);
+  const [delevary, setDelevary] = useState(null);
+  const [delevaryData, setDelevaryData] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    let data = jwtDecode(token);
-    if (data != null) {
-      setUserDetels(data.userAddress);
-      ShippingForm.setValues({
-        street: data.userAddress.street || "",
-        city: data.userAddress.city || "",
-        phone: data.userAddress.phone || ""
-      });
-    }
-    $(".loading").fadeOut(1000);
+    allPlace();
+    
+    
+ 
   }, []);
 
   const baseUrl = "https://project-model.onrender.com";
@@ -39,7 +32,8 @@ export default function Payment() {
     initialValues: {
       street: "",
       phone: "",
-      city: ""
+      city: "",
+      delevary: "" 
     },
     validationSchema,
     onSubmit: function (val) {
@@ -48,10 +42,16 @@ export default function Payment() {
   });
 
   async function payChipping(val) {
-    $(".loading").fadeIn(1000);
+   
+    console.log(val);
 
     let body = {
-      shippingAddress: val
+      shippingAddress: {
+        street: val.street,
+        city: val.city,
+        phone: val.phone,
+      },
+      delevary: val.delevary
     };
     const { data } = await axios.post(`${baseUrl}/api/v1/order/${id}`, body, {
       headers: {
@@ -60,70 +60,66 @@ export default function Payment() {
     });
 
     if (data.message == "success") {
-      $(".loading").fadeOut(1000);
+     
       nav("/");
       setCartCount(0);
     }
   }
 
-  const handleAddClick = (address) => {
-    ShippingForm.setValues({
-      street: address.stret,
-      city: address.city,
-      phone: address.phone
-    });
+
+  const handleCityChange = (e) => {
+    const selectedCity = e.target.value;
+    const cityData = delevaryData.find(item => item.place === selectedCity); 
+    if (cityData) {
+      setDelevary(cityData.price);  
+      ShippingForm.setFieldValue("delevary", cityData.price);  
+    }
   };
+
+
+  async function allPlace() {
+    const {data} = await axios.get(`${baseUrl}/api/v1/delevary`);
+    console.log(data.place);
+    setDelevaryData(data.place);
+  }
+
+  useEffect(() => {
+    console.log(delevary);
+  }
+  , [delevary
+    ]);
+    
 
   return (
     <>
-      <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
-        <div id="wifi-loader">
-          <svg className="circle-outer" viewBox="0 0 86 86">
-            <circle className="back" cx="43" cy="43" r="40"></circle>
-            <circle className="front" cx="43" cy="43" r="40"></circle>
-            <circle className="new" cx="43" cy="43" r="40"></circle>
-          </svg>
-          <svg className="circle-middle" viewBox="0 0 60 60">
-            <circle className="back" cx="30" cy="30" r="27"></circle>
-            <circle className="front" cx="30" cy="30" r="27"></circle>
-          </svg>
-          <svg className="circle-inner" viewBox="0 0 34 34">
-            <circle className="back" cx="17" cy="17" r="14"></circle>
-            <circle className="front" cx="17" cy="17" r="14"></circle>
-          </svg>
-          <div className="text" data-text="loading..."></div>
-        </div>
-      </div>
+     
 
       <div className="container">
         <div className="row">
-          <div className="col-md-12 d-flex align-items-end justify-content-end py-2">
-            {userDetels?.map((elm, index) => (
-              <div key={index} className="text-center  userDetels w-100  py-2 ">
-                <p className="fw-bolder fs-3 fw-bold m-2"> الشارع : <span className='text-danger'>{elm.stret}</span></p>
-                <p className="fw-bolder fs-3 m-2">  المدينه : <span className='text-danger'>{elm.city}</span></p>
-                <p className="fw-bolder fs-3 m-2">  رقم الهاتف : <span className='text-danger'>{elm.phone}</span></p>
-                <button className='btn btn-danger m-2 ' onClick={() => handleAddClick(elm)}>اضافه العنوان </button>
-              </div>
-            ))}
-          </div>
-          <div className="col-md-12">
+          <div className="col-md-6">
             <form onSubmit={ShippingForm.handleSubmit} action="">
               <div className="py-2 w-100">
-                <label htmlFor="street" className='fw-bolder fs-3 text-end w-100 py-2'> : الشارع</label>
-                <input
-                  onChange={ShippingForm.handleChange}
+                <label htmlFor="address" className="fw-bolder fs-3 text-end w-100 py-2">: العنوان</label>
+                <select
+                  onChange={(e) => { 
+                    ShippingForm.handleChange(e);
+                    handleCityChange(e); 
+                  }}
                   value={ShippingForm.values.street}
                   className="form-control text-end"
-                  type="text"
                   name="street"
                   id="street"
-                />
+                >
+                  {delevaryData?.map((address, index) => (
+                    <option key={index} value={address.place}>  
+                      {address.place}
+                    </option>
+                  ))}
+                </select>
                 <p className="text-danger">{ShippingForm.errors.street}</p>
               </div>
-
               <div className="py-2 w-100">
-                <label htmlFor="city" className='fw-bolder fs-3 text-end w-100 py-2'> : المدينه  </label>
+                <label htmlFor="city" className='fw-bolder fs-3 text-end w-100 py-2'> : العنوان ب التفاصيل  </label>
                 <input
                   onChange={ShippingForm.handleChange}
                   value={ShippingForm.values.city}

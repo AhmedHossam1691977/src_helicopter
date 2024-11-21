@@ -48,21 +48,21 @@ export default function CatigorySlider() {
                     <div className="col-12 position-relative">
                         <Carousel
                             responsive={responsive}
-                            className='w-100 position-relative my-5'
+                            className='w-100 position-relative my-5 '
                             swipeable={true}
                             draggable={true}
                             showDots={true}
                             ssr={true}
                             infinite={true}
-                            autoPlay={true}
-                            autoPlaySpeed={2000}
-                            customLeftArrow={<></>}
-                            customRightArrow={<></>}
+                            autoPlay={false}
+                            autoPlaySpeed={false}
+                            // customLeftArrow={<></>}
+                            // customRightArrow={<></>}
                         >
                             {allCatigory.map((elm) => (
                                 <div key={elm._id} className='card mx-2'>
                                     <Link to={`productOfCatigory/${elm._id}`} className=" d-flex align-items-center justify-content-center ">
-                                        <div className=''>
+                                        <div className='cardBody'>
                                             <img src={elm.image} className='w-100 cursor-pointer' alt={elm.name} />
                                             <p className='text-danger fs-5 fw-bold p-3 text-center'>{elm.name}</p>
                                         </div>

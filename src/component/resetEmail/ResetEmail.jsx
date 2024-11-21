@@ -40,9 +40,10 @@ export default function ResetEmail({ savedata }) {
     try {
       const { data } = await axios.post(`${basurl}/api/v1/auth/resetEmail`, valus);
       if (data.message === "success") {
-        nav("/userAddress");
         savedata(data.user);
         localStorage.setItem("userToken", data.token);
+        nav("/home");
+        window.location.reload();
       }
     } catch (error) {
       setErrorMessage(error.response.data.error);

@@ -54,7 +54,7 @@ export default function ProductOfCatigory() {
       let { data } = await addCart(id);
       if (data.message === "success") {
         setCartCount(data.cartItems);
-        toast.success(data.message, {
+        toast.success("تم الاضافه", {
           position: 'top-center',
           className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
           duration: 1000,
@@ -64,7 +64,7 @@ export default function ProductOfCatigory() {
         throw new Error("Error adding to cart");
       }
     } catch (error) {
-      toast.error("Error", {
+      toast.error("تم الإزالة", {
         position: 'top-right',
         className: 'border border-danger p-2',
         duration: 1000,

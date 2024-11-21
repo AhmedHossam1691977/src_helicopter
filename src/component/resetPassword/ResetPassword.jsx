@@ -20,7 +20,7 @@ export default function ResetPassword() {
   // Validation schema for the form
   const validationSchema = Yup.object({
     email: Yup.string().email("Enter a valid email").required("Email is required").min(3, "Minimum length is 3"),
-    newPassword: Yup.string().required("Password is required").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, "Password must contain at least one uppercase letter and at least one special character"),
+    newPassword: Yup.string().required("Password is required").matches(/^[a-zA-Z0-9]{6,}$/, "Password must contain at least 6 characters, including letters and numbers."),
     confirmPassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("newPassword")], "Passwords must match"),
   });
 

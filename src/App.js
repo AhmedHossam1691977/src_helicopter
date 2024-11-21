@@ -74,7 +74,9 @@ export default function App() {
       path: '/', element: <Layout Logout={Logout} userdata={userdata} />, children: [
         { index: true, element: <Home /> },
         { path: 'about', element: <About /> },
+        { path: 'cart/:id', element: <ProtectedRouter><Cart /></ProtectedRouter> },
         { path: 'cart', element: <ProtectedRouter><Cart /></ProtectedRouter> },
+
         { path: 'whichlist', element: <ProtectedRouter> <Whichlist /> </ProtectedRouter> },
         { path: 'catigory', element: <ProtectedRouter> <Catigory /> </ProtectedRouter> },
         { path: 'product', element: <> <Product /> </> },
