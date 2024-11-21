@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import $ from "jquery";
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function Setting() {
   const userEmail = localStorage.getItem("userEmail");
@@ -73,6 +74,10 @@ export default function Setting() {
 
   return (
     <>
+    <Helmet>
+        <title>الاعدادات | هليكوبتر</title>
+        <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
+      </Helmet>
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">

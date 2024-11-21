@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./orders.css";
+import { Helmet } from 'react-helmet';
 
 export default function Orders() {
   const baseUrl = "https://project-model.onrender.com";
@@ -24,7 +25,11 @@ export default function Orders() {
     }
   };
 
-  return (
+  return <>
+  <Helmet>
+        <title>طلبات | هليكوبتر</title>
+        <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
+      </Helmet>
     <div className="container">
       <div className="row">
         <div className="col-md-12 my-5">
@@ -40,7 +45,7 @@ export default function Orders() {
         )}
       </div>
     </div>
-  );
+    </>
 }
 
 // Component to display individual order
@@ -79,6 +84,7 @@ function OrderItem({ order }) {
   };
 
   return (
+    
     <div className="col-md-12 border border-1 my-2" id="orders">
       <p className="text-end fs-3 fw-bolder">
         الاسم: <span className="text-danger">{order.user.name}</span>

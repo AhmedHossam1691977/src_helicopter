@@ -7,6 +7,7 @@ import { CartContext } from '../../context/cartConteext/cartContext.js';
 import { MdOutlineDelete } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsCartCheckFill } from "react-icons/bs";
+import { Helmet } from 'react-helmet';
 
 export default function Whichlist() {
   
@@ -70,7 +71,10 @@ export default function Whichlist() {
 
 
   return <>
-
+<Helmet>
+        <title>المفضله | هليكوبتر</title>
+        <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
+      </Helmet>
 <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50  bg-white  ">
   
   <div id="wifi-loader">

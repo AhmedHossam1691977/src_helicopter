@@ -8,6 +8,7 @@ import axios from 'axios';
 import {  useParams } from 'react-router-dom';
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Helmet } from "react-helmet";
 
 
 
@@ -170,6 +171,10 @@ export default function Cart() {
     
   return (
     <>
+    <Helmet>
+        <title>السله | هليكوبتر</title>
+        <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
+      </Helmet>
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">

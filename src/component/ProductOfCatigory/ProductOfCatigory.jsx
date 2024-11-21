@@ -10,6 +10,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js';
 import "./ProductOfCatigory.css";
 import { productContext } from '../../context/productContext/ProductContext.js';
+import { Helmet } from 'react-helmet';
 
 export default function ProductOfCatigory() {
   const baseUrl = "https://project-model.onrender.com";
@@ -122,6 +123,12 @@ export default function ProductOfCatigory() {
 
   return (
     <>
+      <Helmet>
+        <title>هليكوبتر | منتجات الاقسام</title>
+        <meta name="description" content={`Explore all products in the ${catigory.name} category`} />
+        <meta name="keywords" content={`${catigory.name}, products, shopping`} />
+      </Helmet>
+      
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">
@@ -186,7 +193,7 @@ export default function ProductOfCatigory() {
                     <div className='product-des px-3'>
                       <p className="text-main text-end fs-3 text-black text-name"> الصنف : <span className='text-danger fs-4'>{elm.title.split(" ").slice(0, 3).join(" ")}</span></p>
                       <p className="fw-bold text-end px-1 py-2">
-                        <span className='text-danger fs-4'>{elm.price}</span> : السعر
+                        <span className='text-danger fs-4'>{elm.price}</span> :السعر
                       </p>
                     </div>
                   </div>
@@ -194,8 +201,8 @@ export default function ProductOfCatigory() {
               );
             })
           ) : (
-            <div className="col-12">
-              <p className="text-center">لا توجد نتائج مطابقة</p>
+            <div className="col-12 my-5">
+              <p className="text-center text-danger fs-4">لا توجد منتجات هنا</p>
             </div>
           )}
         </div>

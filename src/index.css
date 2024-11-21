@@ -21,7 +21,7 @@ ul
 
 .navbar{
   padding:10px 0px !important;
-  position: relative;
+
 }
 
 .total-price {
@@ -830,20 +830,15 @@ a , a:hover{
     background-color: #af0404a6;
   }
   
-  /* .navbar{
-    width: 100% !important;
-    position: fixed;
-    top: 0px !important;
-    margin-bottom: 100px !important;
-    z-index: 99999999999999;
-    background-color: #FFF;
-  }
-#minsliders{
-  position: relative;
-  top: 100px !important;
-} */
+  
 }
 
 .userDetels{
   border: #e80606 dotted 1px ;
+}
+
+.logo{
+  width: 150px;
+  height: 50px;
+  /* background-color: #000; */
 }

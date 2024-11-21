@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import axios from 'axios';
 import { useFormik } from 'formik';
 import $ from "jquery"
+import { Helmet } from 'react-helmet';
 
 
 export default function VerifyResetCode() {
@@ -60,7 +61,10 @@ export default function VerifyResetCode() {
   }
 
   return <>
-  
+  <Helmet>
+        <title>التحقق من الكود | هليكوبتر</title>
+        <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
+      </Helmet>
   <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50  bg-white  ">
   
   <div id="wifi-loader">

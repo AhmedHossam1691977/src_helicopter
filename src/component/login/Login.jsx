@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Helmet } from 'react-helmet';  // Import Helmet
 import img from "./../../assits/a1c7dc5b68a42239311e510f54d8cd59.jpeg";
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
@@ -61,6 +62,11 @@ export default function Login({ savedata }) {
 
   return (
     <>
+      <Helmet>
+        <title>تسجيل الدخول - هليكوبتر</title>
+        <meta name="description" content="Login to your account" />
+      </Helmet>
+      
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';  // إضافة Helmet
 import CatigorySlider from '../catigorySlider/CatigorySlider.jsx';
 import $ from 'jquery';
 import Product from '../product/Product.jsx';
@@ -12,6 +13,18 @@ export default function Home() {
 
   return (
     <>
+      {/* إضافة التاج Helmet هنا */}
+      <Helmet>
+        <title>هليكوبتر - الرئيسيه</title>  {/* عنوان الصفحة */}
+        <meta name="description" content="Welcome to Helicopter, your go-to service for home delivery of groceries, baked goods, and more." />
+        <meta name="keywords" content="home delivery, groceries, baked goods, pharmacy, household essentials" />
+        <meta name="author" content="Helicopter Team" />
+        <meta property="og:title" content="Helicopter - Home" />
+        <meta property="og:description" content="Get everything you need delivered to your door. Groceries, pharmacy, and more." />
+        <meta property="og:image" content="URL_TO_IMAGE" /> {/* إذا كان لديك صورة للـ OG */}
+        <meta property="og:url" content="https://yourwebsite.com" />
+      </Helmet>
+
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">

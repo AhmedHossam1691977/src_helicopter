@@ -7,6 +7,7 @@ import $ from "jquery";
 import { BsCartCheckFill } from "react-icons/bs";
 import { CartContext } from '../../context/cartConteext/cartContext.js';
 import toast, { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 import "./peoductDetels.css";
 
 export default function ProductDetelse() {
@@ -123,6 +124,10 @@ export default function ProductDetelse() {
 
   return (
     <>
+      <Helmet>
+        <title>تفاصيل المنتجات</title>
+        <meta name="description" content={`Learn more about ${product.title}, its features, price, and description.`} />
+      </Helmet>
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
         <div id="wifi-loader">
           <svg className="circle-outer" viewBox="0 0 86 86">
