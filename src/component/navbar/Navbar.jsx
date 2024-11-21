@@ -71,9 +71,15 @@ export default function Navbar({ Logout, userdata }) {
             <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
             <div>
              
-            {localStorage.getItem("userToken") ?"" : <li className='nav-item mx-3 '>
-             <Link className="nav-link" to="/signup"><p className='text-center fw-bold text-danger'>تسجيل الدخول</p></Link>
-             </li>}
+            {localStorage.getItem("userToken") ?"" : <>
+              {!userdata && (
+                <li className="nav-item">
+                  <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup">
+                    انشاء حساب
+                  </Link>
+                </li>
+              )}
+            </>}
          
          </div>
               
