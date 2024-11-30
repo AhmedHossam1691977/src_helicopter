@@ -13,7 +13,7 @@ import { productContext } from '../../context/productContext/ProductContext.js';
 import { Helmet } from 'react-helmet';
 
 export default function ProductOfCatigory() {
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   let { addCart, setCartCount } = useContext(CartContext);
   let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
   let { product } = useContext(productContext);
@@ -57,7 +57,7 @@ export default function ProductOfCatigory() {
         setCartCount(data.cartItems);
         toast.success("تم الاضافه", {
           position: 'top-center',
-          className: 'border border-success p-3 bg-white text-danger w-100 fw-bolder fs-4',
+          className: 'border border-success notefection p-3 bg-white text-danger w-100 fw-bolder fs-4',
           duration: 1000,
           icon: '👏'
         });
@@ -67,7 +67,7 @@ export default function ProductOfCatigory() {
     } catch (error) {
       toast.error("تم الإزالة", {
         position: 'top-right',
-        className: 'border border-danger p-2',
+        className: 'border border-danger p-2 notefection',
         duration: 1000,
       });
     }
@@ -83,7 +83,7 @@ export default function ProductOfCatigory() {
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الإزالة", {
             position: 'top-center',
-            className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4',
+            className: 'border border-danger notefection p-3 bg-white text-danger w-100 fw-bolder fs-4',
             duration: 1000,
             icon: '👏'
           });
@@ -98,7 +98,7 @@ export default function ProductOfCatigory() {
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الاضافه", {
             position: 'top-center',
-            className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4',
+            className: 'border border-danger notefection p-3 bg-white text-danger w-100 fw-bolder fs-4',
             duration: 1000,
             icon: '👏'
           });
@@ -149,13 +149,15 @@ export default function ProductOfCatigory() {
       </div>
       <Toaster />
       <div className="container" id='ProductOfCatigory'>
-        <div className="row">
-          <div className="col-md-12 d-flex align-items-center justify-content-center my-5">
-            <p className='fw-bold fs-1 text-danger catigory-name'>{catigory.name}</p>
+        <div className="row ">
+          <div className="col-md-12 productOfCatigories d-flex align-items-center justify-content-center ">
+           <div className='productOfCatigories'>
+           <p className='fw-bold fs-1 productOfCatigories text-danger catigory-name'>{catigory.name}</p>
+           </div>
           </div>
 
           {/* حقل البحث */}
-          <div className="col-12 my-3">
+          <div className="col-12 ">
             <input
               type="text"
               placeholder="ابحث عن منتج..."

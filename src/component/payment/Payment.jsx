@@ -17,7 +17,7 @@ export default function Payment() {
  
   }, []);
 
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const { setCartCount } = useContext(CartContext);
   const { id } = useParams();
   const nav = useNavigate();

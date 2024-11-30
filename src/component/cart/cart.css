@@ -35,7 +35,7 @@
 
   .modal-container {
     position: fixed;
-    top: 0;
+    top: 0%;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -43,14 +43,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 99999999999999999999999999999999;
   }
   
   .modal-content {
+    /* position: absolute;
+    bottom: 5%; */
+    margin-top: 120px;
     background: white;
     padding: 50px;
     border-radius: 8px;
     width: 80%;
+    height: auto;
+   
   }
   
   .close-btn {
@@ -76,4 +81,35 @@
   }
 
 
-  
+#cart  .cart{
+    margin-top:100px ;
+  }
+
+
+
+
+
+  .inpot-address{
+    padding: 2px !important;
+  }
+
+  @media (max-width: 768px) {
+    
+    .modal-content {
+      position: absolute;
+      bottom: 5%;
+      margin-top: 120px;
+      background: white;
+      padding: 50px;
+      border-radius: 8px;
+      width: 80%;
+      height: auto;
+     
+    }
+ 
+    .addres-text{
+      font-size: 12px !important;
+    }
+
+   
+  }

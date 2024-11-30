@@ -7,7 +7,7 @@ export let catigoryContext = createContext();
 
 export default function CatigoryContextProvider(props){
 
-    const baseUrl = "https://project-model.onrender.com"
+    const baseUrl = "https://helicopter-api.vercel.app"
     const [allCatigory , setAllCatigory]=useState([])
 
 

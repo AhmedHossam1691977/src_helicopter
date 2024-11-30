@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import "./peoductDetels.css";
 
 export default function ProductDetelse() {
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const [product, setProduct] = useState([]);
   const [catigoryId, setCatigoryId] = useState([]);
   const [productOfCatigory, setProductOfCatigory] = useState([]);
@@ -147,10 +147,10 @@ export default function ProductDetelse() {
         </div>
       </div>
       <Toaster />
-      <div id='product-d' className={"container my-5"}>
-        <div className="row my-5">
+      <div id='product-d' className={"container"}>
+        <div className="row ">
           <div className="col-md-12 prodoct-d-text d-flex align-items-center justify-content-center w-100">
-            <div className="container">
+            <div className="container ">
               <div className="row align-items-center justify-content-center">
                 <div className="col-md-6 d-flex align-items-center justify-content-center my-5 w-50">
                   <img src={product.imgCover} className='prodoct-d-img' alt="" />
@@ -187,7 +187,7 @@ export default function ProductDetelse() {
               {productOfCatigory?.map((elm) => {
                 return (
                   <div className='card mx-2' onClick={() => handleCatigoryClick(elm._id)} key={elm._id}>
-                    <div className='d-flex align-items-center justify-content-between prodoct-d-text'>
+                    <div className='d-flex align-items-center justify-content-between '>
                       <img src={elm.imgCover} className='w-50 cursor-pointer py-2' alt="" />
                       <p className='fs-5 fw-bold px-2 text-danger text-end'>{elm.title.split(" ").slice(0, 2).join(" ")}</p>
                     </div>

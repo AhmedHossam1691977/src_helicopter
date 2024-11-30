@@ -15,13 +15,13 @@ export default function Home() {
     <>
       {/* إضافة التاج Helmet هنا */}
       <Helmet>
-        <title>هليكوبتر - الرئيسيه</title>  {/* عنوان الصفحة */}
+        <title>هليكوبتر - الرئيسيه</title>  
         <meta name="description" content="Welcome to Helicopter, your go-to service for home delivery of groceries, baked goods, and more." />
         <meta name="keywords" content="home delivery, groceries, baked goods, pharmacy, household essentials" />
         <meta name="author" content="Helicopter Team" />
         <meta property="og:title" content="Helicopter - Home" />
         <meta property="og:description" content="Get everything you need delivered to your door. Groceries, pharmacy, and more." />
-        <meta property="og:image" content="URL_TO_IMAGE" /> {/* إذا كان لديك صورة للـ OG */}
+        <meta property="og:image" content="URL_TO_IMAGE" /> 
         <meta property="og:url" content="https://yourwebsite.com" />
       </Helmet>
 
@@ -44,10 +44,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container">
+      <div className="container ">
         <div className="row">
-          <div className="col-md-12">
-            <MinSlider className="minsliders" />
+          <div className="col-md-12 my-5">
+            <MinSlider className="minsliders my-5 " />
           </div>
           <div className="col-md-12">
             <CatigorySlider />

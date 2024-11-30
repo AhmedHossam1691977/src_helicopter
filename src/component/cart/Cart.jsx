@@ -100,11 +100,11 @@ export default function Cart() {
  
   }, []);
 
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const { id } = useParams();
   let validationSchema = Yup.object({
-    street: Yup.string().required("street required").min(3, "min length 7"),
-    city: Yup.string().required("city required").min(3, "min length 7"),
+    street: Yup.string().required("street required").min(3),
+    city: Yup.string().required("city required").min(10, "min length 10"),
     phone: Yup.string().required("phone required").min(3, "min length 3").max(20, "max length 20").matches(/^01[1520][0-9]{8}$/, "enter valid phone"),
   });
 
@@ -194,24 +194,24 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="container my-5" id="cart">
+      <div className="container" id="cart">
         <div className="row">
-          <div className="col-md-12 my-2 w-100 d-flex align-items-center justify-content-between">
-            <div style={{ direction: "rtl" }}>
-              <p className="fs-5 fw-bolder">
+          <div className="col-md-12 cart my-2 w-100 d-flex align-items-center justify-content-between">
+            <div className="cart" style={{ direction: "rtl" }}>
+              <p className="fs-5 fw-bolder cart">
                 المنتجات : <span className="text-danger">{cartCount}</span>
               </p>
             </div>
-            <div>
+            <div className="cart">
               <button
                 onClick={() => deletAllProduct()}
-                className="btn btn-danger m-auto py-2 px-3 border-success border border-1"
+                className="btn  btn-danger m-auto py-2 px-3 border-success border border-1"
               >
                 <i className="fa-regular fa-trash-can px-1 text-white"></i> حذف الكل
               </button>
             </div>
           </div>
-          <div className="col-md-12">
+          <div className="col-md-12 ">
             <div className="w-100 d-flex align-items-center justify-content-between border border-2 px-2 py-2">
               <p> المنتج</p>
               <p>السعر</p>
@@ -311,9 +311,9 @@ export default function Cart() {
             ""
           )}
         </div>
-        <div className="col-md-12 d-flex justify-content-center">
+        <div className="col-md-12 d-flex justify-content-center" >
         {showDeliveryDetails && (
-                      <div className="modal-container">
+                      <div className="modal-container " id="payOrder">
                         <div className="modal-content">
                           <button
                             className="close-btn"
@@ -327,14 +327,14 @@ export default function Cart() {
                           <>
      
 
-     <div className="container">
+     <div className="container " id="payOrder">
        <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-6 ">
         <div className="total-price w-100">
-                    <p className="d-flex justify-content-end m-3 fs-3 fw-bolder">
+                    <p className="d-flex justify-content-end mx-3 fs-3 fw-bolder">
                       الحساب
                     </p>
-                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {totalPrice || "0"}
@@ -343,7 +343,7 @@ export default function Cart() {
                     </p>
                    
                     
-                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {servicePrice || "0"}
@@ -351,7 +351,7 @@ export default function Cart() {
                       :سعر  الخدمة 
                     </p>
                     
-                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {delevary || "0"}
@@ -359,7 +359,7 @@ export default function Cart() {
                       :سعر  التوصيل 
                     </p>
 
-                    <p className="d-flex justify-content-end m-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {totalAmount || "0"}
@@ -370,32 +370,32 @@ export default function Cart() {
         </div>
          <div className="col-md-6">
            <form onSubmit={ShippingForm.handleSubmit} action="">
-             <div className="py-2 w-100">
-               <label htmlFor="address" className="fw-bolder fs-3 text-end w-100 py-2">: العنوان</label>
+             <div className=" w-100">
+               <label htmlFor="address" className="fw-bolder addres-text fs-3 text-end w-100 py-2">: العنوان</label>
                <select
                  onChange={(e) => { 
                    ShippingForm.handleChange(e);
                    handleCityChange(e); 
                  }}
                  value={ShippingForm.values.street}
-                 className="form-control text-end"
+                 className="form-control inpot-address text-end "
                  name="street"
                  id="street"
                >
                  {delevaryData?.map((address, index) => (
-                   <option key={index} value={address.place}>  
+                   <option className="select" key={index} value={address.place}>  
                      {address.place}
                    </option>
                  ))}
                </select>
                <p className="text-danger">{ShippingForm.errors.street}</p>
              </div>
-             <div className="py-2 w-100">
-               <label htmlFor="city" className='fw-bolder fs-3 text-end w-100 py-2'> : العنوان ب التفاصيل  </label>
+             <div className=" w-100">
+               <label htmlFor="city" className='fw-bolder addres-text fs-3 text-end w-100 py-2'> : العنوان ب التفاصيل  </label>
                <input
                  onChange={ShippingForm.handleChange}
                  value={ShippingForm.values.city}
-                 className="form-control text-end"
+                 className="form-control inpot-address text-end"
                  type="text"
                  name="city"
                  id="city"
@@ -403,12 +403,12 @@ export default function Cart() {
                <p className="text-danger">{ShippingForm.errors.city}</p>
              </div>
 
-             <div className="py-2 w-100">
-               <label htmlFor="phone" className='fw-bolder fs-3 text-end w-100 py-2'> : رقم الهاتف</label>
+             <div className=" w-100">
+               <label htmlFor="phone" className='fw-bolder addres-text fs-3 text-end w-100 py-2'> : رقم الهاتف</label>
                <input
                  onChange={ShippingForm.handleChange}
                  value={ShippingForm.values.phone}
-                 className="form-control text-end"
+                 className="form-control inpot-address text-end"
                  type="tel"
                  name="phone"
                  id="phone"
@@ -431,7 +431,7 @@ export default function Cart() {
         <button  onClick={() => {
     handlePayment();
     toggleDeliveryDetails();
-  }}  className="btn btn-danger w-50">
+  }}  className="btn btn-danger w-50 my-5">
                         <FaCcAmazonPay className="fw-bolder fs-3" />
                       </button>
         </div>

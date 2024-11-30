@@ -11,7 +11,7 @@ import { whichlistContext } from '../../context/whichListcontext/WhichListcontex
 export default function Login({ savedata }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const nav = useNavigate();
   const { getAllWhichlistData, setWhichlistProduct } = useContext(whichlistContext);
 
@@ -88,7 +88,7 @@ export default function Login({ savedata }) {
 
       <div className="container-fluid py-5" id="login">
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-7 login">
             <img className="w-100" src={img} alt="img" />
           </div>
           <div className="col-md-5 py-5 px-5 d-flex align-items-center justify-content-center">

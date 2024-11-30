@@ -81,7 +81,7 @@ export default function ResetEmail({ savedata }) {
 
       <div className="container-fluid py-5">
         <div className="row align-items-center">
-          <div className="col-md-7">
+          <div className="col-md-7 login">
             <img className="w-100" src={img} alt="imageLogin" />
           </div>
           <div className="col-md-5 py-5 px-5">

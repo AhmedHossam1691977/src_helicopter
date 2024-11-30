@@ -8,7 +8,7 @@ export default function Layout({Logout , userdata ,count}) {
   return <>
     
  
-<Navbar  Logout={Logout} userdata={userdata} />
+<Navbar   Logout={Logout} userdata={userdata} />
       
           <Outlet />
         

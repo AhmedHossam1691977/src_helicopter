@@ -1,10 +1,14 @@
+#product-d .ProductDetelses{
+  margin-top: 50px;
+}
 #product-d .prodoct-d-img{
     width: 100%;
     height: 350px;
     
   }
   #product-d .prodoct-d-text{
-    background-color: #00000010;
+    margin-top: 150px;
+    background-color: #43424210;
   }
 
   #product-d .product-card img{
@@ -27,10 +31,10 @@
 
 
 #product-d .card{
-    border: none;
+    border: solid 1px #000000;
     border-radius: none;
     height: auto;
-    background-color: #0000000e;
+    background-color: #ffffff;
   }
 #product-d .card img{
     border-radius: 10px;

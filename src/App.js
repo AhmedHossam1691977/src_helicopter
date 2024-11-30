@@ -21,7 +21,7 @@ import CatigoryContextProvider from './context/catigoryCotext/CatigoryCotext.js'
 import ProductDetelse from './component/productDetelse/ProductDetelse.jsx';
 import ProductContextProvider from './context/productContext/ProductContext.js';
 import CartContextProvider from './context/cartConteext/cartContext.js';
-import Payment from './component/payment/Payment.jsx';
+// import Payment from './component/payment/Payment.jsx';
 import WhichlistContextProvider from './context/whichListcontext/WhichListcontext.js';
 import NotFound from './component/notFound/NotFound.jsx';
 import Setting from './component/setting/Setting.jsx';
@@ -40,7 +40,7 @@ export default function App() {
   // Logout function
   function Logout(setWhichlistProduct) {
     savedata(null);
-    setWhichlistProduct(0);
+    // setWhichlistProduct(0);
     localStorage.removeItem("userToken");
     return <Navigate to='/login' />;
   }
@@ -85,7 +85,7 @@ export default function App() {
         { path: 'orders', element: <ProtectedRouter> <Orders /> </ProtectedRouter> },
         { path: 'productOfCatigory/:id', element: <> <ProductOfCatigory /> </> },
         { path: 'productDetelse/:id', element: <ProtectedRouter> <ProductDetelse /> </ProtectedRouter> },
-        { path: 'payment/:id', element: <ProtectedRouter> <Payment /> </ProtectedRouter> },
+        // { path: 'payment/:id', element: <ProtectedRouter> <Payment /> </ProtectedRouter> },
         { path: 'signup', element: <SignUp /> },
         { path: 'ResetEmail', element: <ResetEmail savedata={savedata} /> },
         { path: 'login', element: <Login savedata={savedata} /> },

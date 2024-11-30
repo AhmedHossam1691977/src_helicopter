@@ -17,13 +17,13 @@ export default function About() {
         <meta property="og:url" content="https://yourwebsite.com/about" />
       </Helmet>
 
-      <div className="container my-5 d-flex align-items-center justify-content-center">
+      <div className="container  d-flex align-items-center justify-content-center">
         <div className="row align-items-center justify-content-center">
-          <div className="col-md-6 d-flex align-items-center justify-content-center">
-            <img src={img} className='helicopter' alt="Image description" />
+          <div className="col-md-6 my-5 d-flex align-items-center justify-content-center">
+            <img src={img} className='helicopter my-5' alt="Image description" />
           </div>
-          <div className="col-md-6 about d-flex align-items-center justify-content-center">
-            <div>
+          <div className="col-md-6 my-5 about d-flex align-items-center justify-content-center">
+            <div className='my-5'>
               <h1 className='text-end fw-bolder fs-2'>
                 من نحن - <span className='text-danger'>هليكوبتر</span>
               </h1>

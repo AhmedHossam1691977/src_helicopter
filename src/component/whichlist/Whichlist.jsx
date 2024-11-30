@@ -99,8 +99,10 @@ export default function Whichlist() {
   
   <div className="container">
     <div className="row">
-      <div className="col-md-12 d-flex justify-content-end my-3">
-        <h1 className='text-end text-name text-danger  border-2 border-bottom border-black'>المفضله</h1>
+      <div className="col-md-12 d-flex justify-content-end whilist">
+        <div className='whilist'>
+        <h1 className='whilist text-end text-name text-danger  border-2 border-bottom border-black'>المفضله</h1>
+        </div>
       </div>
 
     {product ?<>

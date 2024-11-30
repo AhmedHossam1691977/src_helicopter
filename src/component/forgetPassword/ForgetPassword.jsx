@@ -15,7 +15,7 @@ export default function ForgetPassword() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const basurl = "https://project-model.onrender.com";
+  const basurl = "https://helicopter-api.vercel.app";
   const nav = useNavigate();
 
   // Validation schema for the form
@@ -78,7 +78,7 @@ export default function ForgetPassword() {
 
       <div className="container-fluid py-5">
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-7 login">
             <img className="w-100" src={img} alt="Forget Password" />
           </div>
           <div className="col-md-5 py-5 px-5 d-flex align-items-center justify-content-center">

@@ -21,7 +21,10 @@ ul
 
 .navbar{
   padding:10px 0px !important;
-
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  z-index: 9999999;
 }
 
 .total-price {
@@ -643,7 +646,9 @@ a , a:hover{
   height: 24px;
 }
 
-
+.whilist{
+  margin-top: 50px;
+}
 
 
 
@@ -838,7 +843,27 @@ a , a:hover{
 }
 
 .logo{
-  width: 150px;
+  width: 70px;
   height: 50px;
-  /* background-color: #000; */
+}
+
+
+.setting{
+  margin-top:50px ;
+}
+
+.notFound{
+  margin-top: 150px;
+}
+
+.note-found{
+  font-size: 100px !important;
+}
+
+.notefection{
+  margin-top: 100px;
+}
+
+.login{
+  margin-top: 100px;
 }

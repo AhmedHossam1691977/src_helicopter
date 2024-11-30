@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./catigory.css"
 
 export default function Catigory() {
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app/";
   const [catigory, setCatigory] = useState([]);
   const navigate = useNavigate(); // نستخدم useNavigate للتوجيه
 

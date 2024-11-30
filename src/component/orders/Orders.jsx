@@ -4,7 +4,7 @@ import "./orders.css";
 import { Helmet } from 'react-helmet';
 
 export default function Orders() {
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Orders() {
       </Helmet>
     <div className="container">
       <div className="row">
-        <div className="col-md-12 my-5">
+        <div className="col-md-12 orderssss ">
           <p className="fw-bolder fs-2 text-end text-danger">الطلبات</p>
         </div>
 
@@ -100,7 +100,7 @@ function OrderItem({ order }) {
       </p>
       <p className="text-end fw-bolder fs-4">
         سعر الطلب:{" "}
-        <span className="text-danger">{order.orderPrice + order.delevary + 5}</span>
+        <span className="text-danger">{order.orderPrice + order.delevary + order.cartorder}</span>
       </p>
       <p className="text-end fw-bolder fs-4">
         تاريخ الطلب: <span className="text-danger">{formatDate(order.DeliverdAt)}</span>

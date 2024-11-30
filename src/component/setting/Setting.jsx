@@ -14,7 +14,7 @@ export default function Setting() {
     $(".loading").fadeOut(1000);
   }, []);
 
-  const basurl = "https://project-model.onrender.com";
+  const basurl = "https://helicopter-api.vercel.app";
   let nav = useNavigate();
   let [loading, setLoading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
@@ -24,7 +24,7 @@ export default function Setting() {
     password: Yup.string()
       .required("Password Required")
       .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+       /^[a-zA-Z0-9]{6,}$/,
         "Password must contain at least one uppercase letter and at least one special character"
       ),
     newPassword: Yup.string()
@@ -97,15 +97,15 @@ export default function Setting() {
         </div>
       </div>
 
-      <div className="container py-5">
+      <div className="container ">
         <div className="row">
-          <div className="col-md-12">
-            <h2 className="text-end">
+          <div className="col-md-12 setting">
+            <h2 className="text-end setting">
               <span className="text-danger">الاعدادات</span>
             </h2>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 setting">
             <form className="py-3">
               <div className="my-3">
                 <label htmlFor="userName" className="text-end w-100">
@@ -136,7 +136,7 @@ export default function Setting() {
             </form>
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-6 setting">
             <p className="text-end fw-bolder fs-5 psaa-text">تغير كلمه السر</p>
             <div className="w-100">
               {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}

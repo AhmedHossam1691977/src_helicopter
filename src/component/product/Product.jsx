@@ -13,7 +13,7 @@ import "./product.css";
 import { Helmet } from 'react-helmet';
 
 export default function Product() {
-  const baseUrl = "https://project-model.onrender.com";
+  const baseUrl = "https://helicopter-api.vercel.app";
   const [allProduct, setAllProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -86,7 +86,7 @@ export default function Product() {
       console.error('Error searching products:', error);
       toast.error("Failed to search products. Please try again.", {
         position: 'top-right',
-        className: 'border border-danger p-2',
+        className: 'border border-danger p-2 notefection',
         duration: 1000,
       });
     }
@@ -100,7 +100,7 @@ export default function Product() {
         setCartCount(data.cartItems);
         toast.success("تم الاضافه", {
           position: 'top-center',
-          className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4 success',
+          className: 'border border-danger notefection p-3 bg-white text-danger w-100 fw-bolder fs-4 success',
           duration: 1000,
           icon: '👏'
         });
@@ -111,7 +111,7 @@ export default function Product() {
       nav("/login");
       toast.error("Failed to add to cart. Please try again.", {
         position: 'top-center',
-        className: 'border border-danger p-2',
+        className: 'border border-danger notefection p-2',
         duration: 1000,
       });
     }
@@ -130,7 +130,7 @@ export default function Product() {
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الإزالة", {
             position: 'top-center',
-            className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4',
+            className: 'border border-danger notefection p-3 bg-white text-danger notefection w-100 fw-bolder fs-4',
             duration: 1000,
             icon: '👏'
           });
@@ -145,7 +145,7 @@ export default function Product() {
           setWhichlistCount(data.wishlist.length);
           toast.success("تم الاضافه", {
             position: 'top-center',
-            className: 'border border-danger p-3 bg-white text-danger w-100 fw-bolder fs-4',
+            className: 'border border-danger notefection p-3 bg-white text-danger w-100 fw-bolder fs-4',
             duration: 1000,
             icon: '👏'
           });
@@ -193,11 +193,11 @@ export default function Product() {
       </div>
 
       <Toaster />
-      <div className="container my-5" id='product'>
+      <div className="container" id='product'>
         <div className="row">
-          <div className="col-md-12 d-flex align-items-center underline justify-content-between w-100">
-            <div className='w-100'>
-              <p className='fw-bold fs-2 products_text text-danger text-end w-100'>المنتجات</p>
+          <div className="col-md-12 productes d-flex align-items-center underline justify-content-between w-100">
+            <div className='w-100 productes' >
+              <p className='fw-bold productes fs-2 products_text text-danger text-end w-100'>المنتجات</p>
             </div>
           </div>
 

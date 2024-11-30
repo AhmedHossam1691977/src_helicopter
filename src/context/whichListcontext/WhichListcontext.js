@@ -22,7 +22,7 @@ export default function WhichlistContextProvider(props) {
   }, []);
 
   async function getAllWhichlistData() {
-    return await axios.get(`https://project-model.onrender.com/api/v1/wishlist`, {
+    return await axios.get(`https://helicopter-api.vercel.app/api/v1/wishlist`, {
       headers: {
         token: localStorage.getItem("userToken"),
       },
@@ -30,7 +30,7 @@ export default function WhichlistContextProvider(props) {
   }
 
   async function addWishlist(id) {
-      return await axios.patch(`https://project-model.onrender.com/api/v1/wishlist`,{ product: id },
+      return await axios.patch(`https://helicopter-api.vercel.app/api/v1/wishlist`,{ product: id },
       {
         headers: {
           token: localStorage.getItem("userToken"),
@@ -45,7 +45,7 @@ export default function WhichlistContextProvider(props) {
 
   async function deletWhichData(id) {
     return await axios.delete(
-      `https://project-model.onrender.com/api/v1/wishlist/${id}`,
+      `https://helicopter-api.vercel.app/api/v1/wishlist/${id}`,
       {
         headers: {
           token: localStorage.getItem("userToken"),
