@@ -8,11 +8,11 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js';
-import "./ProductOfCatigory.css";
+import "./../ProductOfCatigory/ProductOfCatigory.css";
 import { productContext } from '../../context/productContext/ProductContext.js';
 import { Helmet } from 'react-helmet';
 
-export default function ProductOfCatigory() {
+export default function ProductOfSubCarigory() {
   const baseUrl = "https://portfolio-api-p4u7.onrender.com";
   let { addCart, setCartCount } = useContext(CartContext);
   let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
@@ -41,9 +41,11 @@ export default function ProductOfCatigory() {
   async function allProductInCatigory() {
     $(".loading").fadeIn(1000);
     try {
-      const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}`);
-      setAllCatigory(data.category);
-      setAllProduct(data.category.allProduct);
+      const { data } = await axios.get(`${baseUrl}/api/v1/subCategory/${id}`);
+      console.log(data.subcategory);
+      
+      setAllCatigory(data.subcategory);
+      setAllProduct(data.subcategory.AllProduct);
     } catch (err) {
       // Handle error
     }

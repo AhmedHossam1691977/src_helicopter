@@ -14,7 +14,7 @@ export default function Setting() {
     $(".loading").fadeOut(1000);
   }, []);
 
-  const basurl = "https://helicopter-api.vercel.app";
+  const basurl = "https://portfolio-api-p4u7.onrender.com";
   let nav = useNavigate();
   let [loading, setLoading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");

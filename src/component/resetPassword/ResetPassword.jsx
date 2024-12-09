@@ -14,7 +14,7 @@ export default function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const basurl = "https://helicopter-api.vercel.app";
+  const basurl = "https://portfolio-api-p4u7.onrender.com";
   const nav = useNavigate();
 
   // Validation schema for the form

@@ -12,11 +12,13 @@ import { CartContext } from '../../context/cartConteext/cartContext.js';
 import { whichlistContext } from '../../context/whichListcontext/WhichListcontext.js';
 import $ from "jquery";
 import logo from '../../assits/hhhhhhh.png';
+import { subCatigoryContext } from '../../context/subCatigory/subCatigory.js';
 export default function Navbar({ Logout, userdata }) {
   let { allCatigory } = useContext(catigoryContext);
   let { setProduct, product } = useContext(productContext);
   let { cartCount } = useContext(CartContext);
-  let { getAllWhichlistData, setWhichlistProduct, WhichlistProduct } = useContext(whichlistContext);
+  let { getAllWhichlistData, setWhichlistProduct } = useContext(whichlistContext);
+  let{allSubCatigory}=useContext(subCatigoryContext)
 
   const navbarRef = useRef(null);
 
@@ -26,6 +28,8 @@ export default function Navbar({ Logout, userdata }) {
   };
 
   useEffect(() => {
+    console.log(allSubCatigory);
+    
     if (userdata) {
       getAllWhichlistData();
     }
@@ -145,11 +149,11 @@ export default function Navbar({ Logout, userdata }) {
                   الاقسام
                 </Link>
                 <ul className="dropdown-menu text-center">
-                  {allCatigory ? (
+                  {allSubCatigory ? (
                     <>
-                      {allCatigory.map((elm) => {
+                      {allSubCatigory.map((elm) => {
                         return (
-                          <li key={elm._id}><Link className="dropdown-item d-flex position-relative align-items-center justify-content-end text-bold" to={`productOfCatigory/${elm._id}`} onClick={handleNavLinkClick}>
+                          <li key={elm._id}><Link className="dropdown-item d-flex position-relative align-items-center justify-content-end text-bold" to={`productOfSubCarigory/${elm._id}`} onClick={handleNavLinkClick}>
                             {elm.name}
                           </Link></li>
                         );
@@ -164,6 +168,8 @@ export default function Navbar({ Logout, userdata }) {
               <li className="nav-item">
                 <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="product" onClick={handleNavLinkClick}>المنتجات</Link>
               </li>
+
+              
 
               {userdata ? (
                 <>

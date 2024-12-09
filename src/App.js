@@ -21,12 +21,14 @@ import CatigoryContextProvider from './context/catigoryCotext/CatigoryCotext.js'
 import ProductDetelse from './component/productDetelse/ProductDetelse.jsx';
 import ProductContextProvider from './context/productContext/ProductContext.js';
 import CartContextProvider from './context/cartConteext/cartContext.js';
-// import Payment from './component/payment/Payment.jsx';
 import WhichlistContextProvider from './context/whichListcontext/WhichListcontext.js';
 import NotFound from './component/notFound/NotFound.jsx';
 import Setting from './component/setting/Setting.jsx';
 import Orders from './component/orders/Orders.jsx';
 import { Toast, ToastContainer } from 'react-bootstrap';
+import Chat from './component/chat/Chat.jsx';
+import SubCatigoryContextProvider from './context/subCatigory/subCatigory.js';
+import ProductOfSubCarigory from './component/productOfSubCarigory/ProductOfSubCarigory.jsx';
 
 export default function App() {
   let [userdata, setuserdata] = useState(null);
@@ -84,8 +86,12 @@ export default function App() {
         { path: 'setting', element: <ProtectedRouter> <Setting /> </ProtectedRouter> },
         { path: 'orders', element: <ProtectedRouter> <Orders /> </ProtectedRouter> },
         { path: 'productOfCatigory/:id', element: <> <ProductOfCatigory /> </> },
+        { path: 'productOfSubCarigory/:id', element: <> <ProductOfSubCarigory/> </> },
+
         { path: 'productDetelse/:id', element: <ProtectedRouter> <ProductDetelse /> </ProtectedRouter> },
         // { path: 'payment/:id', element: <ProtectedRouter> <Payment /> </ProtectedRouter> },
+        { path: 'chat', element: <ProtectedRouter> <Chat/> </ProtectedRouter> },
+
         { path: 'signup', element: <SignUp /> },
         { path: 'ResetEmail', element: <ResetEmail savedata={savedata} /> },
         { path: 'login', element: <Login savedata={savedata} /> },
@@ -99,6 +105,7 @@ export default function App() {
 
   return (
     <>
+<SubCatigoryContextProvider>
       <WhichlistContextProvider>
         <CartContextProvider>
           <CatigoryContextProvider>
@@ -118,6 +125,10 @@ export default function App() {
           </CatigoryContextProvider>
         </CartContextProvider>
       </WhichlistContextProvider>
+</SubCatigoryContextProvider>
+      
+
+
     </>
   );
 }

@@ -4,7 +4,7 @@ import "./orders.css";
 import { Helmet } from 'react-helmet';
 
 export default function Orders() {
-  const baseUrl = "https://helicopter-api.vercel.app";
+  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
@@ -25,31 +25,48 @@ export default function Orders() {
     }
   };
 
-  return <>
-  <Helmet>
+  // Delete order
+  const deleteOrder = async (id) => {
+    console.log(id);
+    
+    
+      const { data } = await axios.delete(`${baseUrl}/api/v1/order/delete/${id}`, {
+        headers: {
+          token: localStorage.getItem("userToken"),
+        },
+      });
+      console.log(data);
+
+    
+  };
+
+  return (
+    <>
+      <Helmet>
         <title>طلبات | هليكوبتر</title>
         <meta name="description" content="تصفح منتجاتنا المتنوعة في متجرنا." />
       </Helmet>
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12 orderssss ">
-          <p className="fw-bolder fs-2 text-end text-danger">الطلبات</p>
-        </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 orderssss">
+            <p className="fw-bolder fs-2 text-end text-danger">الطلبات</p>
+          </div>
 
-        {allOrders.length > 0 ? (
-          allOrders.map((order) => (
-            <OrderItem key={order._id} order={order} />
-          ))
-        ) : (
-          <p className="text-center">لا توجد طلبات متوفرة حاليا</p>
-        )}
+          {allOrders.length > 0 ? (
+            allOrders.map((order) => (
+              <OrderItem key={order._id} order={order} deleteOrder={deleteOrder} />
+            ))
+          ) : (
+            <p className="text-center">لا توجد طلبات متوفرة حاليا</p>
+          )}
+        </div>
       </div>
-    </div>
     </>
+  );
 }
 
 // Component to display individual order
-function OrderItem({ order }) {
+function OrderItem({ order, deleteOrder }) {
   const calculateElapsedTime = (orderDate) => {
     const now = new Date();
     const deliverDate = new Date(orderDate);
@@ -84,36 +101,47 @@ function OrderItem({ order }) {
   };
 
   return (
-    
-    <div className="col-md-12 border border-1 my-2" id="orders">
-      <p className="text-end fs-3 fw-bolder">
-        الاسم: <span className="text-danger">{order.user.name}</span>
-      </p>
-      <p className="text-end fw-bolder fs-4">
-        المدينة: <span className="text-danger">{order.shippingAddress.city}</span>
-      </p>
-      <p className="text-end fw-bolder fs-4">
-        الشارع: <span className="text-danger">{order.shippingAddress.street}</span>
-      </p>
-      <p className="text-end fw-bolder fs-4">
-        رقم الهاتف: <span className="text-danger">{order.shippingAddress.phone}</span>
-      </p>
-      <p className="text-end fw-bolder fs-4">
-        سعر الطلب:{" "}
-        <span className="text-danger">{order.orderPrice + order.delevary + order.cartorder}</span>
-      </p>
-      <p className="text-end fw-bolder fs-4">
-        تاريخ الطلب: <span className="text-danger">{formatDate(order.DeliverdAt)}</span>
-      </p>
-
-      {!order.isDeliverd && (
-        <p className="text-end fw-bolder fs-4">
-          الوقت المتبقي:{" "}
-          <span className="text-danger">
-            {`${timePassed.minutes} دقيقة ${timePassed.seconds} ثانية`}
-          </span>
+    <div className="col-md-12 border border-1 my-2 d-flex align-items-center justify-content-between" id="orders">
+      <div>
+        {order.isDeliverd ? (
+          ""
+        ) : (
+          <button onClick={() => deleteOrder(order._id)} className="btn btn-danger mx-2">
+            حذف الطلب
+          </button>
+        )}
+        <button className="btn btn-success">عرض الطلب</button>
+      </div>
+      <div>
+        <p className="text-end fs-3 fw-bolder">
+          الاسم: <span className="text-danger">{order.user.name}</span>
         </p>
-      )}
+        <p className="text-end fw-bolder fs-4">
+          المدينة: <span className="text-danger">{order.shippingAddress.city}</span>
+        </p>
+        <p className="text-end fw-bolder fs-4">
+          الشارع: <span className="text-danger">{order.shippingAddress.street}</span>
+        </p>
+        <p className="text-end fw-bolder fs-4">
+          رقم الهاتف: <span className="text-danger">{order.shippingAddress.phone}</span>
+        </p>
+        <p className="text-end fw-bolder fs-4">
+          سعر الطلب:{" "}
+          <span className="text-danger">{order.orderPrice + order.delevary + order.cartorder}</span>
+        </p>
+        <p className="text-end fw-bolder fs-4">
+          تاريخ الطلب: <span className="text-danger">{formatDate(order.DeliverdAt)}</span>
+        </p>
+
+        {!order.isDeliverd && (
+          <p className="text-end fw-bolder fs-4">
+            الوقت المتبقي:{" "}
+            <span className="text-danger">
+              {`${timePassed.minutes} دقيقة ${timePassed.seconds} ثانية`}
+            </span>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

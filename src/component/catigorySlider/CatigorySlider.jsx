@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "./CatigorySlider.css"
 export default function CatigorySlider() {
 
-    const baseUrl = "https://helicopter-api.vercel.app";
+    const baseUrl = "https://portfolio-api-p4u7.onrender.com";
     const [allCatigory, setAllCatigory] = useState([]);
 
     useEffect(() => {

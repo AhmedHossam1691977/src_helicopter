@@ -13,7 +13,7 @@ import "./product.css";
 import { Helmet } from 'react-helmet';
 
 export default function Product() {
-  const baseUrl = "https://helicopter-api.vercel.app";
+  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
   const [allProduct, setAllProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
