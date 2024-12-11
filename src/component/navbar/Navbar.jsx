@@ -84,9 +84,9 @@ export default function Navbar({ Logout, userdata }) {
           <div className="d-flex align-items-center justify-align-content-around">
             <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
 
-            <li className="nav-item">
+            {localStorage.getItem("userToken") ? "":<li className="nav-item">
                   <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup" onClick={handleNavLinkClick}>انشاء حساب</Link>
-                </li>
+                </li>}
 
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
