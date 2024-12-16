@@ -122,8 +122,6 @@ export default function Cart() {
   });
 
   async function payChipping(val) {
-   
-    console.log(val);
 
     let body = {
       shippingAddress: {

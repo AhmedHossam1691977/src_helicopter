@@ -29,6 +29,7 @@ import { Toast, ToastContainer } from 'react-bootstrap';
 import Chat from './component/chat/Chat.jsx';
 import SubCatigoryContextProvider from './context/subCatigory/subCatigory.js';
 import ProductOfSubCarigory from './component/productOfSubCarigory/ProductOfSubCarigory.jsx';
+import OrderDetels from './component/orderDetels/OrderDetels.jsx';
 
 export default function App() {
   let [userdata, setuserdata] = useState(null);
@@ -89,7 +90,7 @@ export default function App() {
         { path: 'productOfSubCarigory/:id', element: <> <ProductOfSubCarigory/> </> },
 
         { path: 'productDetelse/:id', element: <ProtectedRouter> <ProductDetelse /> </ProtectedRouter> },
-        // { path: 'payment/:id', element: <ProtectedRouter> <Payment /> </ProtectedRouter> },
+        { path: 'orderDetels/:id', element: <ProtectedRouter><OrderDetels/>  </ProtectedRouter> },
         { path: 'chat', element: <ProtectedRouter> <Chat/> </ProtectedRouter> },
 
         { path: 'signup', element: <SignUp /> },

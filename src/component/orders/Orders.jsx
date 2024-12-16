@@ -2,10 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./orders.css";
 import { Helmet } from 'react-helmet';
-
+import $ from "jquery";
+import { useNavigate } from 'react-router-dom';
 export default function Orders() {
   const baseUrl = "https://portfolio-api-p4u7.onrender.com";
   const [allOrders, setAllOrders] = useState([]);
+  const nav = useNavigate();
+
 
   useEffect(() => {
     fetchUserOrders();
@@ -29,16 +32,26 @@ export default function Orders() {
   const deleteOrder = async (id) => {
     console.log(id);
     
-    
+    $(".loading").fadeIn(1000);
       const { data } = await axios.delete(`${baseUrl}/api/v1/order/delete/${id}`, {
         headers: {
           token: localStorage.getItem("userToken"),
         },
       });
-      console.log(data);
-
+      $(".loading").fadeOut(1000);
+      setAllOrders(data.orders);
+      
     
   };
+
+
+ 
+  const orderDetels = (id) => {
+    nav(`/orderDetels/${id}`);
+  };
+
+
+
 
   return (
     <>
@@ -54,7 +67,7 @@ export default function Orders() {
 
           {allOrders.length > 0 ? (
             allOrders.map((order) => (
-              <OrderItem key={order._id} order={order} deleteOrder={deleteOrder} />
+              <OrderItem key={order._id} order={order} orderDetels={orderDetels} deleteOrder={deleteOrder} />
             ))
           ) : (
             <p className="text-center">لا توجد طلبات متوفرة حاليا</p>
@@ -65,8 +78,27 @@ export default function Orders() {
   );
 }
 
+<div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
+        <div id="wifi-loader">
+          <svg className="circle-outer" viewBox="0 0 86 86">
+            <circle className="back" cx="43" cy="43" r="40"></circle>
+            <circle className="front" cx="43" cy="43" r="40"></circle>
+            <circle className="new" cx="43" cy="43" r="40"></circle>
+          </svg>
+          <svg className="circle-middle" viewBox="0 0 60 60">
+            <circle className="back" cx="30" cy="30" r="27"></circle>
+            <circle className="front" cx="30" cy="30" r="27"></circle>
+          </svg>
+          <svg className="circle-inner" viewBox="0 0 34 34">
+            <circle className="back" cx="17" cy="17" r="14"></circle>
+            <circle className="front" cx="17" cy="17" r="14"></circle>
+          </svg>
+          <div className="text" data-text="loading..."></div>
+        </div>
+      </div>
+
 // Component to display individual order
-function OrderItem({ order, deleteOrder }) {
+function OrderItem({ order, deleteOrder ,orderDetels }) {
   const calculateElapsedTime = (orderDate) => {
     const now = new Date();
     const deliverDate = new Date(orderDate);
@@ -110,7 +142,7 @@ function OrderItem({ order, deleteOrder }) {
             حذف الطلب
           </button>
         )}
-        <button className="btn btn-success">عرض الطلب</button>
+        <button onClick={() => orderDetels(order._id)} className="btn btn-success">عرض الطلب</button>
       </div>
       <div>
         <p className="text-end fs-3 fw-bolder">

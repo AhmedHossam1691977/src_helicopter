@@ -57,26 +57,9 @@ export default function Navbar({ Logout, userdata }) {
 
   return (
     <>
-      <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
-        <div id="wifi-loader">
-          <svg className="circle-outer" viewBox="0 0 86 86">
-            <circle className="back" cx="43" cy="43" r="40"></circle>
-            <circle className="front" cx="43" cy="43" r="40"></circle>
-            <circle className="new" cx="43" cy="43" r="40"></circle>
-          </svg>
-          <svg className="circle-middle" viewBox="0 0 60 60">
-            <circle className="back" cx="30" cy="30" r="27"></circle>
-            <circle className="front" cx="30" cy="30" r="27"></circle>
-          </svg>
-          <svg className="circle-inner" viewBox="0 0 34 34">
-            <circle className="back" cx="17" cy="17" r="14"></circle>
-            <circle className="front" cx="17" cy="17" r="14"></circle>
-          </svg>
-          <div className="text" data-text="loading..."></div>
-        </div>
-      </div>
+     
 
-      <nav className="navbar navbar-expand-lg py-2" ref={navbarRef}>
+      <nav  className="navbar navbar-expand-lg py-2" ref={navbarRef}>
         <div className="container">
           <Link className="navbar-brand fw-bolder fs-3 " to="/" onClick={handleNavLinkClick}>
             <img src={logo} className='logo' alt="logo" />

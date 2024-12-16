@@ -8,6 +8,10 @@
   --rating-color: #ffc908;
 }
 
+#OrderDetails{
+  direction: rtl;
+}
+
 ul
 ,li {
   list-style: none; /* إلغاء العلامات الافتراضية للنقاط */
@@ -20,8 +24,9 @@ ul
 }
 
 .navbar{
-  padding:10px 0px !important;
+  padding:1px 0px !important;
   position: fixed;
+  top: 0px !important;
   width: 100%;
   background-color: #fff;
   z-index: 9999999;
