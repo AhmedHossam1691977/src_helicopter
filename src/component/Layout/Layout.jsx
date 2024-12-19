@@ -7,12 +7,24 @@ import Footer from '../footer/Footer.jsx'
 export default function Layout({Logout , userdata ,count}) {
   return <>
     
- 
-<Navbar   Logout={Logout} userdata={userdata} />
-      
+
+  
+    
+        <div className="col-md-12">
+          <Navbar   Logout={Logout} userdata={userdata} />
+        </div>
+        <div id="layout" className="col-md-12">
+          
           <Outlet />
+        </div>
+    
+      <div className="col-md-12">
+        <Footer/>
+      </div>
+
+      
         
-          <Footer/>
+          
  
  
           

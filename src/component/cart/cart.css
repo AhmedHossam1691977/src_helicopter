@@ -9,7 +9,7 @@
 @media (max-width: 768px) {
 
     #cart .total-price {
-      padding: 0rem;
+      padding: 1rem;
     }
   
     #cart .total-price{
@@ -47,8 +47,6 @@
   }
   
   .modal-content {
-    /* position: absolute;
-    bottom: 5%; */
     margin-top: 120px;
     background: white;
     padding: 50px;
@@ -81,9 +79,6 @@
   }
 
 
-#cart  .cart{
-    margin-top:100px ;
-  }
 
 
 

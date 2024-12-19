@@ -28,7 +28,7 @@ export default function   MinSlider() {
   return <>
   
   <Carousel responsive={responsive}
-  className='w-100 position-relative my-5 Carousel'
+  className='w-100 position-relative  Carousel'
   swipeable={true}
   draggable={true}
   showDots={true}

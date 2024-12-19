@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet';  // إضافة Helmet
+import { Helmet } from 'react-helmet'; // إضافة Helmet
 import CatigorySlider from '../catigorySlider/CatigorySlider.jsx';
 import $ from 'jquery';
 import Product from '../product/Product.jsx';
 import MinSlider from '../minSlider/MinSlider.jsx';
 
 export default function Home() {
-  // Hide loading animation after component mounts
+  // Scroll to top and hide loading animation after component mounts
   useEffect(() => {
-    $(".loading").fadeOut(1000);
+    window.scrollTo(0, 0); // الانتقال إلى أعلى الصفحة
+    $(".loading").fadeOut(1000); // إخفاء الـ Loading
   }, []);
 
   return (

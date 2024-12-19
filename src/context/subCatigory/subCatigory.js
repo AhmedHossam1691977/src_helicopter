@@ -28,7 +28,7 @@ export default function SubCatigoryContextProvider(props){
         const {data} = await axios.get(`${baseUrl}/api/v1/subCategory`).catch((err)=>{
             console.log(err);
         })
-        console.log(data.subcategories);
+
         setAllSubCatigory(data.subcategories)
         
     }

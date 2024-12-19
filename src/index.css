@@ -23,8 +23,14 @@ ul
   height: 220px !important;
 }
 
+
+#layout{
+  margin-top: 8% !important;
+}
+
+
 .navbar{
-  padding:1px 0px !important;
+  padding:10px 0px !important;
   position: fixed;
   top: 0px !important;
   width: 100%;
@@ -651,9 +657,9 @@ a , a:hover{
   height: 24px;
 }
 
-.whilist{
+/* .whilist{
   margin-top: 50px;
-}
+} */
 
 
 
@@ -821,6 +827,11 @@ a , a:hover{
     color: black;
   }
 
+  #layout{
+    margin-top: 35% !important;
+  }
+  
+
 
   .nav-item.dropdownn:hover .dropdown-menu {
     display: block;
@@ -857,9 +868,9 @@ a , a:hover{
   margin-top:50px ;
 }
 
-.notFound{
+/* .notFound{
   margin-top: 150px;
-}
+} */
 
 .note-found{
   font-size: 100px !important;

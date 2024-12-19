@@ -28,7 +28,7 @@ export default function Navbar({ Logout, userdata }) {
   };
 
   useEffect(() => {
-    console.log(allSubCatigory);
+   
     
     if (userdata) {
       getAllWhichlistData();

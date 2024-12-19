@@ -7,7 +7,6 @@ export default function WhichlistContextProvider(props) {
   let [WhichlistProduct, setWhichlistProduct] = useState([]);
 
   useEffect(() => {
-    console.log("hi wichlist");
 
     async function gitData() {
       let { data } = await getAllWhichlistData();

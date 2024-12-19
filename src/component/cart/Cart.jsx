@@ -157,12 +157,10 @@ export default function Cart() {
 
   async function allPlace() {
     const {data} = await axios.get(`${baseUrl}/api/v1/delevary`);
-    console.log(data.place);
     setDelevaryData(data.place);
   }
 
   useEffect(() => {
-    console.log(delevary);
   }
   , [delevary
     ]);
