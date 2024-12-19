@@ -18,7 +18,7 @@ export default function Layout({Logout , userdata ,count}) {
           <Outlet />
         </div>
     
-      <div className="col-md-12">
+      <div className="col-md-12 footer">
         <Footer/>
       </div>
 

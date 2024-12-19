@@ -35,7 +35,7 @@ ul
   top: 0px !important;
   width: 100%;
   background-color: #fff;
-  z-index: 9999999;
+  z-index: 9999;
 }
 
 .total-price {
@@ -882,4 +882,9 @@ a , a:hover{
 
 .login{
   margin-top: 100px;
+}
+
+#OrderDetails img{
+  width: 50px !important;
+  height: 50px !important;
 }

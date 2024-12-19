@@ -201,7 +201,7 @@ export default function Cart() {
             <div className="cart">
               <button
                 onClick={() => deletAllProduct()}
-                className="btn  btn-danger m-auto py-2 px-3 border-success border border-1"
+                className="btn  btn-danger m-auto py-2 px-3  border border-1"
               >
                 <i className="fa-regular fa-trash-can px-1 text-white"></i> حذف الكل
               </button>
@@ -326,11 +326,11 @@ export default function Cart() {
      <div className="container " id="payOrder">
        <div className="row">
         <div className="col-md-6 ">
-        <div className="total-price w-100">
-                    <p className="d-flex justify-content-end mx-3 fs-3 fw-bolder">
+        <div className="total-price w-100 my-2">
+                    <p className="d-flex justify-content-end mx-1 fs-3 fw-bolder">
                       الحساب
                     </p>
-                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-1 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {totalPrice || "0"}
@@ -339,7 +339,7 @@ export default function Cart() {
                     </p>
                    
                     
-                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-1 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {servicePrice || "0"}
@@ -347,7 +347,7 @@ export default function Cart() {
                       :سعر  الخدمة 
                     </p>
                     
-                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-1 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {delevary || "0"}
@@ -355,7 +355,7 @@ export default function Cart() {
                       :سعر  التوصيل 
                     </p>
 
-                    <p className="d-flex justify-content-end mx-3 fs-5 fw-bolder">
+                    <p className="d-flex justify-content-end mx-1 fs-5 fw-bolder">
                       جنيه{" "}
                       <span className="text-danger px-2">
                         {totalAmount || "0"}

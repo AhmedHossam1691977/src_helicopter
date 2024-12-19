@@ -206,7 +206,7 @@ export default function ProductOfSubCarigory() {
             })
           ) : (
             <div className="col-12 my-5">
-              <p className="text-center text-danger fs-4">لا توجد منتجات هنا</p>
+              <p className="text-center text-danger fs-4">...جاري تحميل المنتجات</p>
             </div>
           )}
         </div>

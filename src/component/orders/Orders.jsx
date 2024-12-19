@@ -77,12 +77,17 @@ export default function Orders() {
   }
 
   if (loading) {
-    return <div className="container">Loading orders...</div>;
+    return <div className="container text-center my-5 fs-2 fw-bold text-danger">....جاري تحميل الطلبات</div>;
   }
 
   if (error) {
     return <div className="container text-danger">Error: {error}</div>;
   }
+
+  function orderDetels(id){
+    nav("/orderDetels/"+id)
+  }
+
 
   return (
     <div className="container">
@@ -97,7 +102,7 @@ export default function Orders() {
             <div key={order._id} id="orders" className="col-md-12 orders my-2 d-flex justify-content-end align-items-center">
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div>
-                  <button className="btn btn-success mx-2">عرض الطلب</button>
+                  <button onClick={()=>orderDetels(order._id)} className="btn btn-success mx-2">عرض الطلب</button>
                   {order.state !== 'ACCEPTED' && (
                     <button onClick={() => deletOrder(order._id)} className="btn btn-danger mx-2">
                       حذف الطلب
@@ -106,22 +111,6 @@ export default function Orders() {
                 </div>
 
                 <div>
-                  <p className="text-end fs-3 fw-bolder">
-                    الاسم: <span className="text-danger">{order.user.name}</span>
-                  </p>
-                  <p className="text-end fw-bolder fs-4">
-                    المدينة: <span className="text-danger">{order.shippingAddress.city}</span>
-                  </p>
-                  <p className="text-end fw-bolder fs-4">
-                    الشارع: <span className="text-danger">{order.shippingAddress.street}</span>
-                  </p>
-                  <p className="text-end fw-bolder fs-4">
-                    رقم الهاتف: <span className="text-danger">{order.shippingAddress.phone}</span>
-                  </p>
-                  <p className="text-end fw-bolder fs-4">
-                    سعر الطلب:{" "}
-                    <span className="text-danger">{order.orderPrice + order.delevary + order.cartorder}</span>
-                  </p>
                   <p className="text-end fw-bolder fs-4">
                     تاريخ الطلب: <span className="text-danger">{formatDate(order.DeliverdAt)}</span>
                   </p>
