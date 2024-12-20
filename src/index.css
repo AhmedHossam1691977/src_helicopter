@@ -35,7 +35,7 @@ ul
   top: 0px !important;
   width: 100%;
   background-color: #fff;
-  z-index: 9999;
+  z-index: 90000 !important;
 }
 
 .total-price {
@@ -832,6 +832,20 @@ a , a:hover{
   }
   
 
+  .navbar{
+    padding:10px 0px !important;
+    position: fixed;
+    top: 0px !important;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9999;
+  }
+
+  .logo{
+    width: 50px !important;
+    height: 35px !important;
+  }
+  
 
   .nav-item.dropdownn:hover .dropdown-menu {
     display: block;

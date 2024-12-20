@@ -65,7 +65,7 @@ export default function Navbar({ Logout, userdata }) {
             <img src={logo} className='logo' alt="logo" />
           </Link>
           <div className="d-flex align-items-center justify-align-content-around">
-            <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
+            <div className="d-flex align-items-center d-lg-none me-2  justify-content-between">
 
             {localStorage.getItem("userToken") ? "":<li className="nav-item">
                   <Link className="nav-link active px-3 fw-bold text-end" aria-current="page" to="signup" onClick={handleNavLinkClick}>انشاء حساب</Link>
@@ -77,7 +77,7 @@ export default function Navbar({ Logout, userdata }) {
             </div>
           </div>
           <div className="d-flex align-items-center justify-align-content-around">
-            <div className="d-flex align-items-center d-lg-none me-2 my-2 justify-content-between">
+            <div className="d-flex align-items-center d-lg-none me-2  justify-content-between">
               <li className="nav-item form-mob mx-4">
                 <form className='nav-link'>
                   <input

@@ -116,7 +116,7 @@ export default function Whichlist() {
                       <span className="m-auto cursor-pointer " >
                         <MdOutlineDelete onClick={()=>deletProduct(elm.id)} id="wish" className=" fs-1 position-absolute"/>
                       </span>
-                      <Link to={"/ProductDetelse/" + elm._id}> <span className="m-auto cursor-pointer " >
+                      <Link to={"/productDetelse/" + elm._id}> <span className="m-auto cursor-pointer " >
                         <AiOutlineEye id="wishs" className=" fs-2 position-absolute"/>
                       </span></Link>
                       </div>

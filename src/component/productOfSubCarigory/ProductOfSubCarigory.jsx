@@ -181,7 +181,7 @@ export default function ProductOfSubCarigory() {
                         <span className="m-auto cursor-pointer" onClick={() => toggleWishlist(elm._id)}>
                           <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${isInWishlist ? 'text-danger' : ''}`} />
                         </span>
-                        <Link to={"/ProductDetelse/" + elm._id}>
+                        <Link to={"/productDetelse/" + elm._id}>
                           <span className="m-auto cursor-pointer">
                             <AiOutlineEye id="wishs" className="fa-solid fa-heart fs-2 position-absolute" />
                           </span>

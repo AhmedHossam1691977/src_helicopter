@@ -181,19 +181,25 @@ export default function ProductDetelse() {
               infinite={true}
               autoPlay={true}
               autoPlaySpeed={5000}
-              customLeftArrow={<></>}
-              customRightArrow={<></>}
+              // customLeftArrow={<></>}
+              // customRightArrow={<></>}
             >
-              {productOfCatigory?.map((elm) => {
-                return (
-                  <div className='card mx-2' onClick={() => handleCatigoryClick(elm._id)} key={elm._id}>
-                    <div className='d-flex align-items-center justify-content-between '>
-                      <img src={elm.imgCover} className='w-50 cursor-pointer py-2' alt="" />
-                      <p className='fs-5 fw-bold px-2 text-danger text-end'>{elm.title.split(" ").slice(0, 2).join(" ")}</p>
-                    </div>
-                  </div>
-                );
-              })}
+              {productOfCatigory &&
+  productOfCatigory
+    .sort(() => Math.random() - 0.5) // خلط المصفوفة بشكل عشوائي
+    .slice(0, 30) // أخذ أول 30 عنصر
+    .map((elm) => {
+      return (
+        <div className="card mx-2" onClick={() => handleCatigoryClick(elm._id)} key={elm._id}>
+          <div className="d-flex align-items-center justify-content-between">
+            <img src={elm.imgCover} className="w-50 cursor-pointer py-2" alt="" />
+            <p className="fs-5 fw-bold px-2 text-danger text-end">
+              {elm.title.split(" ").slice(0, 2).join(" ")}
+            </p>
+          </div>
+        </div>
+      );
+    })}
             </Carousel>
           </div>
         </div>
