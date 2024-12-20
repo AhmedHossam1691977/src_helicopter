@@ -43,7 +43,7 @@ export default function ResetEmail({ savedata }) {
       if (data.message === "success") {
         savedata(data.user);
         localStorage.setItem("userToken", data.token);
-        nav("/home");
+        nav("/");
         window.location.reload();
       }
     } catch (error) {
@@ -87,7 +87,7 @@ export default function ResetEmail({ savedata }) {
           <div className="col-md-5 py-5 px-5">
             <div className="px-5">
               <h2 className="text-end my-2">
-                إعادة تعيين <span className="text-danger">الرمز</span>
+                 تاكيد <span className="text-danger">الايميل</span>
               </h2>
 
               {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
