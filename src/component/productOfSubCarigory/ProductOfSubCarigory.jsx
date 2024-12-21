@@ -20,7 +20,7 @@ export default function ProductOfSubCarigory() {
 
   let { id } = useParams();
 
-  const [catigory, setAllCatigory] = useState([]);
+  const [supCatigory, setAllSubcatigory] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); // حالة البحث
@@ -43,9 +43,10 @@ export default function ProductOfSubCarigory() {
     try {
       const { data } = await axios.get(`${baseUrl}/api/v1/subCategory/${id}`);
       console.log(data.subcategory);
-      
-      setAllCatigory(data.subcategory);
-      setAllProduct(data.subcategory.AllProduct);
+        console.log(data.allProduct);
+        
+        setAllSubcatigory(data.subcategory);
+      setAllProduct(data.allProduct);
     } catch (err) {
       // Handle error
     }
@@ -127,8 +128,8 @@ export default function ProductOfSubCarigory() {
     <>
       <Helmet>
         <title>هليكوبتر | منتجات الاقسام</title>
-        <meta name="description" content={`Explore all products in the ${catigory.name} category`} />
-        <meta name="keywords" content={`${catigory.name}, products, shopping`} />
+        <meta name="description" content={`Explore all products in the ${supCatigory.subcategory} category`} />
+        <meta name="keywords" content={`${supCatigory.subcategory}, products, shopping`} />
       </Helmet>
       
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
@@ -154,7 +155,7 @@ export default function ProductOfSubCarigory() {
         <div className="row ">
           <div className="col-md-12 productOfCatigories d-flex align-items-center justify-content-center ">
            <div className='productOfCatigories'>
-           <p className='fw-bold fs-1 productOfCatigories text-danger catigory-name'>{catigory.name}</p>
+           <p className='fw-bold fs-1 productOfCatigories text-danger catigory-name'>{supCatigory.subcategory}</p>
            </div>
           </div>
 

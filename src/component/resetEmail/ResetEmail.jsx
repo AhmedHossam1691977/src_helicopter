@@ -21,8 +21,9 @@ export default function ResetEmail({ savedata }) {
   // Validation schema for the form
   const validationSchema = Yup.object({
     code: Yup.number()
-      .required("Code is required")
-      .test("len", "Code must be exactly 6 digits", (val) => val && val.toString().length === 6),
+    .required("Code is required")
+    .test("len", "Code must be between 4 and 6 digits", (val) => val && val.toString().length >= 4 && val.toString().length <= 6),
+  
   });
 
   // Formik setup for form handling

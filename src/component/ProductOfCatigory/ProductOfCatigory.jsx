@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import $ from "jquery";
 import toast, { Toaster } from 'react-hot-toast';
@@ -16,12 +16,12 @@ export default function ProductOfCatigory() {
   const baseUrl = "https://portfolio-api-p4u7.onrender.com";
   let { addCart, setCartCount } = useContext(CartContext);
   let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
-  let { product } = useContext(productContext);
-
   let { id } = useParams();
-
+  const observer = useRef();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [catigory, setAllCatigory] = useState([]);
-  const [allProduct, setAllProduct] = useState([]);
+  const [allProduct, setAllProduct] = useState([]); // المنتجات الحالية
   const [wishlist, setWishlist] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); // حالة البحث
 
@@ -38,12 +38,29 @@ export default function ProductOfCatigory() {
     }
   }, [WhichlistProduct]);
 
-  async function allProductInCatigory() {
+  useEffect(() => {
+    allProductInCatigory(page);
+  }, [page]);
+
+  const lastProductElementRef = useCallback(node => {
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPage(prevPage => prevPage + 1);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [hasMore]);
+
+  async function allProductInCatigory(page) {
     $(".loading").fadeIn(1000);
     try {
-      const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}`);
-      setAllCatigory(data.category);
-      setAllProduct(data.category.allProduct);
+      const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}?page=${page}`);
+      if (data.allProduct.length > 0) {
+        setAllProduct(prevProducts => [...prevProducts, ...data.allProduct]); // إضافة المنتجات الجديدة إلى المنتجات السابقة
+      } else {
+        setHasMore(false); // لا يوجد المزيد من المنتجات
+      }
     } catch (err) {
       // Handle error
     }
@@ -125,8 +142,8 @@ export default function ProductOfCatigory() {
     <>
       <Helmet>
         <title>هليكوبتر | منتجات الاقسام</title>
-        <meta name="description" content={`Explore all products in the ${catigory.name} category`} />
-        <meta name="keywords" content={`${catigory.name}, products, shopping`} />
+        <meta name="description" content={`Explore all products in the ${catigory.category} category`} />
+        <meta name="keywords" content={`${catigory.category}, products, shopping`} />
       </Helmet>
       
       <div className="loading position-fixed top-0 bottom-0 end-0 start-0 opacity-50 bg-white">
@@ -152,7 +169,7 @@ export default function ProductOfCatigory() {
         <div className="row ">
           <div className="col-md-12 productOfCatigories d-flex align-items-center justify-content-center ">
            <div className='productOfCatigories'>
-           <p className='fw-bold fs-1 productOfCatigories text-danger catigory-name'>{catigory.name}</p>
+           <p className='fw-bold fs-1 productOfCatigories text-danger catigory-name'>{catigory.category}</p>
            </div>
           </div>
 
@@ -168,10 +185,10 @@ export default function ProductOfCatigory() {
           </div>
 
           {filteredProducts.length > 0 ? (
-            filteredProducts.map((elm) => {
+            filteredProducts.map((elm, index) => {
               const isInWishlist = wishlist.includes(elm._id);
               return (
-                <div key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
+                <div ref={index === filteredProducts.length - 1 ? lastProductElementRef : null} key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
                   <div className="product position-relative">
                     <div className='position-relative'>
                       <img src={elm.imgCover} className="w-100" alt="" />

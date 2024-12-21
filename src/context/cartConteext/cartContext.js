@@ -55,6 +55,8 @@ export default function CartContextProvider(props) {
     }
 
     function addCart(id) {
+        console.log(id);
+        
         return axios.post(`https://portfolio-api-p4u7.onrender.com/api/v1/cart`, { "product": id }, {
             headers: {
                 'token': localStorage.getItem("userToken")
