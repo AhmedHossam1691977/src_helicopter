@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import $ from "jquery";
 import toast, { Toaster } from 'react-hot-toast';
@@ -19,7 +19,9 @@ export default function ProductOfSubCarigory() {
   let { product } = useContext(productContext);
 
   let { id } = useParams();
-
+  const observer = useRef();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [supCatigory, setAllSubcatigory] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -27,7 +29,7 @@ export default function ProductOfSubCarigory() {
 
   useEffect(() => {
     $(".loading").fadeIn(1000);
-    allProductInCatigory();
+    allProductInSubatigory();
     $(".loading").fadeOut(1000);
   }, [id]);
 
@@ -38,17 +40,39 @@ export default function ProductOfSubCarigory() {
     }
   }, [WhichlistProduct]);
 
-  async function allProductInCatigory() {
+  useEffect(() => {
+    allProductInSubatigory(page);
+  }, [page]);
+
+  const lastProductElementRef = useCallback(node => {
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        setPage(prevPage => prevPage + 1);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [hasMore]);
+
+  async function allProductInSubatigory(page) {
     $(".loading").fadeIn(1000);
     try {
-      const { data } = await axios.get(`${baseUrl}/api/v1/subCategory/${id}`);
+      const { data } = await axios.get(`${baseUrl}/api/v1/subCategory/${id}?page=${page}`);
       console.log(data.subcategory);
-        console.log(data.allProduct);
-        
-        setAllSubcatigory(data.subcategory);
-      setAllProduct(data.allProduct);
+      console.log(data.allProduct);
+      
+      setAllSubcatigory(data.subcategory);
+
+      // دمج المنتجات الجديدة مع المنتجات القديمة بدلاً من استبدالها
+      setAllProduct(prevProducts => [...prevProducts, ...data.allProduct]);
+
+      // إذا لم توجد منتجات جديدة، تعيين hasMore إلى false
+      if (data.allProduct.length === 0) {
+        setHasMore(false);
+      }
     } catch (err) {
       // Handle error
+      console.log(err);
     }
     $(".loading").fadeOut(1000);
   }
@@ -174,7 +198,7 @@ export default function ProductOfSubCarigory() {
             filteredProducts.map((elm) => {
               const isInWishlist = wishlist.includes(elm._id);
               return (
-                <div key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
+                <div ref={lastProductElementRef} key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
                   <div className="product position-relative">
                     <div className='position-relative'>
                       <img src={elm.imgCover} className="w-100" alt="" />
