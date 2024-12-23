@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import "./peoductDetels.css";
 
 export default function ProductDetelse() {
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   const [product, setProduct] = useState([]);
   const [catigoryId, setCatigoryId] = useState([]);
   const [productOfCatigory, setProductOfCatigory] = useState([]);

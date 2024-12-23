@@ -7,14 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 export default function Setting() {
-  const userEmail = localStorage.getItem("userEmail");
-  const userName = localStorage.getItem("userName");
+
 
   useEffect(() => {
     $(".loading").fadeOut(1000);
   }, []);
 
-  const basurl = "https://portfolio-api-p4u7.onrender.com";
+  const basurl = "https://final-pro-api-j1v7.onrender.com";
   let nav = useNavigate();
   let [loading, setLoading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
@@ -105,40 +104,12 @@ export default function Setting() {
             </h2>
           </div>
 
-          <div className="col-md-6 setting">
-            <form className="py-3">
-              <div className="my-3">
-                <label htmlFor="userName" className="text-end w-100">
-                  الاسم
-                </label>
-                <input
-                  className="form-control form border-bottom border-1 border-dark custom-input text-end fw-bolder"
-                  type="text"
-                  name="userName"
-                  id="userName"
-                  placeholder={userName}
-                  readOnly
-                />
-              </div>
-              <div className="my-3">
-                <label htmlFor="userEmail" className="text-end w-100">
-                  الايميل
-                </label>
-                <input
-                  className="form-control form border-bottom border-1 border-dark custom-input text-end fw-bolder"
-                  type="email"
-                  name="userEmail"
-                  id="userEmail"
-                  placeholder={userEmail}
-                  readOnly
-                />
-              </div>
-            </form>
-          </div>
+          
 
-          <div className="col-md-6 setting">
+          <div className="col-md-12 setting d-flex justify-content-center align-items-center">
+            
+            <div className="w-50">
             <p className="text-end fw-bolder fs-5 psaa-text">تغير كلمه السر</p>
-            <div className="w-100">
               {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
               <form className="py-3" onSubmit={registeform.handleSubmit}>
                 <div className="my-3">

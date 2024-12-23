@@ -21,7 +21,7 @@ export default function WhichlistContextProvider(props) {
   }, []);
 
   async function getAllWhichlistData() {
-    return await axios.get(`https://portfolio-api-p4u7.onrender.com/api/v1/wishlist`, {
+    return await axios.get(`https://final-pro-api-j1v7.onrender.com/api/v1/wishlist`, {
       headers: {
         token: localStorage.getItem("userToken"),
       },
@@ -29,7 +29,7 @@ export default function WhichlistContextProvider(props) {
   }
 
   async function addWishlist(id) {
-      return await axios.patch(`https://portfolio-api-p4u7.onrender.com/api/v1/wishlist`,{ product: id },
+      return await axios.patch(`https://final-pro-api-j1v7.onrender.com/api/v1/wishlist`,{ product: id },
       {
         headers: {
           token: localStorage.getItem("userToken"),
@@ -44,7 +44,7 @@ export default function WhichlistContextProvider(props) {
 
   async function deletWhichData(id) {
     return await axios.delete(
-      `https://portfolio-api-p4u7.onrender.com/api/v1/wishlist/${id}`,
+      `https://final-pro-api-j1v7.onrender.com/api/v1/wishlist/${id}`,
       {
         headers: {
           token: localStorage.getItem("userToken"),

@@ -11,7 +11,7 @@ import { whichlistContext } from '../../context/whichListcontext/WhichListcontex
 export default function Login({ savedata }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   const nav = useNavigate();
   const { getAllWhichlistData, setWhichlistProduct } = useContext(whichlistContext);
 
@@ -43,13 +43,10 @@ export default function Login({ savedata }) {
       const { data } = await axios.post(`${baseUrl}/api/v1/auth/signin`, values);
       if (data.message === 'success') {
         localStorage.setItem('userToken', data.token);
-        localStorage.setItem('userName', data.user.userName);
-        localStorage.setItem('userEmail', data.user.email);
-
         const whlistData = await getAllWhichlistData();
         setWhichlistProduct(whlistData.data.wishlist);
-
-        savedata(data.user);
+        
+        savedata(data.token);
         nav('/');
       }
     } catch (error) {

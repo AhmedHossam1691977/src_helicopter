@@ -100,7 +100,7 @@ export default function Cart() {
  
   }, []);
 
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   const { id } = useParams();
   let validationSchema = Yup.object({
     street: Yup.string().required("street required").min(3),

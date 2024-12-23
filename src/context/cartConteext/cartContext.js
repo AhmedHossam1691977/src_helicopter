@@ -39,7 +39,7 @@ export default function CartContextProvider(props) {
 
 
     async function getAllCartData() {
-        return await axios.get(`https://portfolio-api-p4u7.onrender.com/api/v1/cart`, {
+        return await axios.get(`https://final-pro-api-j1v7.onrender.com/api/v1/cart`, {
             headers: {
                 'token': localStorage.getItem("userToken")
             }
@@ -47,7 +47,7 @@ export default function CartContextProvider(props) {
     }
 
     function deletAllCartData() {
-        return axios.delete(`https://portfolio-api-p4u7.onrender.com/api/v1/cart`, {
+        return axios.delete(`https://final-pro-api-j1v7.onrender.com/api/v1/cart`, {
             headers: {
                 'token': localStorage.getItem("userToken")
             }
@@ -57,7 +57,7 @@ export default function CartContextProvider(props) {
     function addCart(id) {
         console.log(id);
         
-        return axios.post(`https://portfolio-api-p4u7.onrender.com/api/v1/cart`, { "product": id }, {
+        return axios.post(`https://final-pro-api-j1v7.onrender.com/api/v1/cart`, { "product": id }, {
             headers: {
                 'token': localStorage.getItem("userToken")
             }
@@ -67,7 +67,7 @@ export default function CartContextProvider(props) {
     function updateProductQuantany(id, quantity) {
         console.log(id);
       
-        return axios.put(`https://portfolio-api-p4u7.onrender.com/api/v1/cart/${id}`, { "quantity": quantity }, {
+        return axios.put(`https://final-pro-api-j1v7.onrender.com/api/v1/cart/${id}`, { "quantity": quantity }, {
             headers: {
                 'token': localStorage.getItem("userToken")
             }
@@ -75,7 +75,7 @@ export default function CartContextProvider(props) {
     }
 
     function deletCartData(id) {
-        return axios.delete(`https://portfolio-api-p4u7.onrender.com/api/v1/cart/${id}`, {
+        return axios.delete(`https://final-pro-api-j1v7.onrender.com/api/v1/cart/${id}`, {
             headers: {
                 'token': localStorage.getItem("userToken")
             }

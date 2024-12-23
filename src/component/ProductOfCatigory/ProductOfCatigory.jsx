@@ -13,7 +13,7 @@ import { productContext } from '../../context/productContext/ProductContext.js';
 import { Helmet } from 'react-helmet';
 
 export default function ProductOfCatigory() {
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   let { addCart, setCartCount } = useContext(CartContext);
   let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
   let { id } = useParams();
@@ -23,13 +23,19 @@ export default function ProductOfCatigory() {
   const [catigory, setAllCatigory] = useState([]);
   const [allProduct, setAllProduct] = useState([]); // المنتجات الحالية
   const [wishlist, setWishlist] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // حالة البحث
+const { product } = useContext(productContext);
 
   useEffect(() => {
     $(".loading").fadeIn(1000);
     allProductInCatigory();
     $(".loading").fadeOut(1000);
   }, [id]);
+
+  useEffect(() => {
+      if (product) {
+        searchProducts();
+      }
+    }, [product]);
 
   useEffect(() => {
     if (Array.isArray(WhichlistProduct)) {
@@ -57,6 +63,7 @@ export default function ProductOfCatigory() {
     try {
       const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}?page=${page}`);
       if (data.allProduct.length > 0) {
+        setAllCatigory(data.category);
         setAllProduct(prevProducts => [...prevProducts, ...data.allProduct]); // إضافة المنتجات الجديدة إلى المنتجات السابقة
       } else {
         setHasMore(false); // لا يوجد المزيد من المنتجات
@@ -134,9 +141,23 @@ export default function ProductOfCatigory() {
   }
 
   // تصفية المنتجات بناءً على البحث
-  const filteredProducts = allProduct.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+ 
+
+  async function searchProducts() {
+    try {
+      const { data } = await axios.get(`${baseUrl}/api/v1/categories/${id}?keyword=${product}`);
+      console.log(data.allProduct);
+      setAllProduct(data.allProduct);
+      setHasMore(data.allProduct.length > 0);
+    } catch (error) {
+      console.error('Error searching products:', error);
+      toast.error("Failed to search products. Please try again.", {
+        position: 'top-right',
+        className: 'border border-danger p-2 notefection',
+        duration: 1000,
+      });
+    }
+  }
 
   return (
     <>
@@ -173,57 +194,85 @@ export default function ProductOfCatigory() {
            </div>
           </div>
 
-          {/* حقل البحث */}
-          <div className="col-12 ">
-            <input
-              type="text"
-              placeholder="ابحث عن منتج..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // تحديث حالة البحث
-              className="form-control"
-            />
-          </div>
+        
 
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((elm, index) => {
-              const isInWishlist = wishlist.includes(elm._id);
-              return (
-                <div ref={index === filteredProducts.length - 1 ? lastProductElementRef : null} key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
-                  <div className="product position-relative">
-                    <div className='position-relative'>
-                      <img src={elm.imgCover} className="w-100" alt="" />
-                      <div id='which-sp' className='which-sp w-100 bg-info'>
-                        <span className="m-auto cursor-pointer" onClick={() => toggleWishlist(elm._id)}>
-                          <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${isInWishlist ? 'text-danger' : ''}`} />
-                        </span>
-                        <Link to={"/productDetelse/" + elm._id}>
-                          <span className="m-auto cursor-pointer">
-                            <AiOutlineEye id="wishs" className="fa-solid fa-heart fs-2 position-absolute" />
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="d-flex align-items-center justify-content-between product-des">
-                      <button onClick={() => addToChart(elm._id)} className="btn btn-danger w-100 d-block">
-                        <BsCartCheckFill className='fs-5 fw-bolder' />
-                      </button>
-                    </div>
-                    <div className='product-des px-3'>
-                      <p className="text-main text-end fs-3 text-black text-name"> الصنف : <span className='text-danger fs-4'>{elm.title.split(" ").slice(0, 3).join(" ")}</span></p>
-                      <p className="fw-bold text-end px-1 py-2">
-                        <span className='text-danger fs-4'>{elm.price}</span> :السعر
-                      </p>
-                    </div>
-                  </div>
+         
+                 {allProduct ? (
+                   <>
+                     {allProduct.map((elm, index) => {
+                       const isInWishlist = wishlist.includes(elm._id);
+                       if (allProduct.length === index + 1) {
+                         return (
+                           <div ref={lastProductElementRef} key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
+                             <div className="product position-relative">
+                               <div className='position-relative'>
+                                 <img src={elm.imgCover} className="w-100" alt="" />
+                                 <div id='which-sp' className='which-sp w-100 '>
+                                   <span className="m-auto cursor-pointer" onClick={() => toggleWishlist(elm._id)}>
+                                     <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${isInWishlist ? 'text-danger' : ''}`} />
+                                   </span>
+                                   <Link to={"/productDetelse/" + elm._id}>
+                                     <span className="m-auto cursor-pointer">
+                                       <AiOutlineEye id="wishs" className="fa-solid fa-heart fs-2 position-absolute" />
+                                     </span>
+                                   </Link>
+                                 </div>
+                               </div>
+                               <div className="d-flex align-items-center justify-content-between product-des">
+                                 <button onClick={() => addToChart(elm._id)} className="btn btn-danger w-100 d-block">
+                                   <BsCartCheckFill className='fs-5 fw-bolder' />
+                                 </button>
+                               </div>
+                               <div className='product-des px-3 position-relative'>
+                                 <p className="text-main text-end fs-3 text-black text-name"> الصنف :  <span className='text-danger fs-4'>{elm.title.split(" ").slice(0, 3).join(" ")}</span></p>
+                                 <p className="fw-bold text-end px-1 py-2 product-price">
+                                   <span className='text-danger fs-4 fw-bolder '>{elm.price}</span> : السعر
+                                 </p>
+                               </div>
+                             </div>
+                           </div>
+                         );
+                       } else {
+                         return (
+                           <div key={elm._id} id='product' className="col-lg-3 col-md-4 col-sm-6 col-6 my-3 ">
+                             <div className="product position-relative">
+                               <div className='position-relative'>
+                                 <img src={elm.imgCover} className="w-100" alt="" />
+                                 <div id='which-sp' className='which-sp w-100 '>
+                                   <span className="m-auto cursor-pointer" onClick={() => toggleWishlist(elm._id)}>
+                                     <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${isInWishlist ? 'text-danger fw-bolder' : ''}`} />
+                                   </span>
+                                   <Link to={"/productDetelse/" + elm._id}>
+                                     <span className="m-auto cursor-pointer">
+                                       <AiOutlineEye id="wishs" className="fa-solid fa-heart fs-2 position-absolute" />
+                                     </span>
+                                   </Link>
+                                 </div>
+                               </div>
+                               <div className="d-flex align-items-center justify-content-between position-relative">
+                                 <button onClick={() => addToChart(elm._id)} className="btn btn-danger w-100 d-block">
+                                   <BsCartCheckFill className='fs-5 fw-bolder' />
+                                 </button>
+                               </div>
+                               <div className='productesss px-3 d-block' >
+                                 <p className="text-main text-end fs-3 text-black text-name">  الصنف : <span className='text-danger fs-4'>{elm.title.split(" ").slice(0, 3).join(" ")}</span></p>
+                               </div>
+                               <div className='product-price'>
+                                 <p className="fw-bold text-end px-1 py-2">
+                                   <span className='text-danger fs-4 fw-bolder '>{elm.price}</span> : السعر
+                                 </p>
+                               </div>
+                             </div>
+                           </div>
+                         );
+                       }
+                     })}
+                   </>
+                 ) : (
+                  <div className="col-12 my-5">
+                  <p className="text-center text-danger fs-4">...جاري تحميل المنتجات</p>
                 </div>
-              );
-            })
-          ) : (
-            <div className="col-12 my-5">
-              <p className="text-center text-danger fs-4">...جاري تحميل المنتجات</p>
-            </div>
-          )}
+                 )}
         </div>
       </div>
     </>

@@ -13,10 +13,11 @@ import { productContext } from '../../context/productContext/ProductContext.js';
 import { Helmet } from 'react-helmet';
 
 export default function ProductOfSubCarigory() {
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   let { addCart, setCartCount } = useContext(CartContext);
   let { addWishlist, deletWhichData, setWhichlistCount, WhichlistProduct, setWhichlistProduct } = useContext(whichlistContext);
   let { product } = useContext(productContext);
+
 
   let { id } = useParams();
   const observer = useRef();
@@ -25,7 +26,18 @@ export default function ProductOfSubCarigory() {
   const [supCatigory, setAllSubcatigory] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // حالة البحث
+
+
+
+  useEffect(() => {
+        if (product) {
+    $(".loading").fadeIn(1000);
+
+          searchProducts();
+    $(".loading").fadeOut(1000);
+
+        }
+      }, [product]);
 
   useEffect(() => {
     $(".loading").fadeIn(1000);
@@ -143,10 +155,24 @@ export default function ProductOfSubCarigory() {
     }
   }
 
-  // تصفية المنتجات بناءً على البحث
-  const filteredProducts = allProduct.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+
+  async function searchProducts() {
+    try {
+      const { data } = await axios.get(`${baseUrl}/api/v1/subCategory/${id}?keyword=${product}`);
+      console.log(data.allProduct);
+      setAllProduct(data.allProduct);
+      setHasMore(data.allProduct.length > 0);
+    } catch (error) {
+      console.error('Error searching products:', error);
+      toast.error("Failed to search products. Please try again.", {
+        position: 'top-right',
+        className: 'border border-danger p-2 notefection',
+        duration: 1000,
+      });
+    }
+  }
+
 
   return (
     <>
@@ -183,28 +209,16 @@ export default function ProductOfSubCarigory() {
            </div>
           </div>
 
-          {/* حقل البحث */}
-          <div className="col-12 ">
-            <input
-              type="text"
-              placeholder="ابحث عن منتج..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // تحديث حالة البحث
-              className="form-control"
-            />
-          </div>
+       
 
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((elm) => {
-              const isInWishlist = wishlist.includes(elm._id);
-              return (
-                <div ref={lastProductElementRef} key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
+          {allProduct.length > 0 ? allProduct.map((elm, index) => (
+                <div  key={elm._id} className="col-lg-3 col-md-4 col-sm-6 col-6 my-3">
                   <div className="product position-relative">
                     <div className='position-relative'>
                       <img src={elm.imgCover} className="w-100" alt="" />
                       <div id='which-sp' className='which-sp w-100 bg-info'>
                         <span className="m-auto cursor-pointer" onClick={() => toggleWishlist(elm._id)}>
-                          <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${isInWishlist ? 'text-danger' : ''}`} />
+                          <FaHeart id="wish" className={`fa-solid fa-heart fs-2 position-absolute ${"" ? 'text-danger' : ''}`} />
                         </span>
                         <Link to={"/productDetelse/" + elm._id}>
                           <span className="m-auto cursor-pointer">
@@ -227,9 +241,8 @@ export default function ProductOfSubCarigory() {
                     </div>
                   </div>
                 </div>
-              );
-            })
-          ) : (
+              
+            )) : (
             <div className="col-12 my-5">
               <p className="text-center text-danger fs-4">...جاري تحميل المنتجات</p>
             </div>

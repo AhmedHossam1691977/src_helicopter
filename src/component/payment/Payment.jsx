@@ -17,7 +17,7 @@ export default function Payment() {
  
   }, []);
 
-  const baseUrl = "https://portfolio-api-p4u7.onrender.com";
+  const baseUrl = "https://final-pro-api-j1v7.onrender.com";
   const { setCartCount } = useContext(CartContext);
   const { id } = useParams();
   const nav = useNavigate();

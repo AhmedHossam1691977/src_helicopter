@@ -8,7 +8,7 @@ export default function Orders() {
   const [userOrders, setUserOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const socketUrl = 'https://portfolio-api-p4u7.onrender.com';
+  const socketUrl = 'https://final-pro-api-j1v7.onrender.com';
   const nav = useNavigate();
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function Orders() {
 
   async function deletOrder(id) {
     try {
-      const { data } = await axios.delete(`https://portfolio-api-p4u7.onrender.com/api/v1/order/delete/${id}`, {
+      const { data } = await axios.delete(`https://final-pro-api-j1v7.onrender.com/api/v1/order/delete/${id}`, {
         headers: {
           token: `${localStorage.getItem('userToken')}`,
         },
